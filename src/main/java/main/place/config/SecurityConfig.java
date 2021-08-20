@@ -30,12 +30,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         /* aqui eu defino qual user tem permissão para qual rota*/
-        http
+      /*  http
             .authorizeRequests()
                 .antMatchers("/schoolar/estudante").hasRole("ADMIN")
                 .antMatchers("/schoolar/estudante/endereco").hasRole("USER")
-                .antMatchers("/schoolar/estudante/curso").hasAnyRole("ADMIN","USER")
+                .antMatchers("/schoolar/estudante/curso")'.hasAnyRole("ADMIN","USER")
             .and()
-                .httpBasic();
+                .httpBasic();*/
     }
 }

@@ -3,6 +3,7 @@ package main.place.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Data
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Cliente extends  EntidadeDominio{
+public class Client extends  EntidadeDominio{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -21,7 +22,10 @@ public class Cliente extends  EntidadeDominio{
     private String lastName;
 
     private Integer cpf;
-
-
+    private Date birthday;
+    private String celphone;
+    private String gender;
+    private String mail;
+    private String password;
 
 }

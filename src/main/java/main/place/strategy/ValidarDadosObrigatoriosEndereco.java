@@ -1,6 +1,6 @@
 package main.place.strategy;
 
-import main.place.entity.Endereco;
+import main.place.entity.Address;
 import main.place.entity.EntidadeDominio;
 import org.springframework.stereotype.Component;
 
@@ -8,13 +8,13 @@ import org.springframework.stereotype.Component;
 public class ValidarDadosObrigatoriosEndereco implements  IStrategy{
     @Override
     public String processar(EntidadeDominio entidadeDominio) {
-        if(entidadeDominio instanceof Endereco){
-            Endereco endereco = (Endereco) entidadeDominio;
+        if(entidadeDominio instanceof Address){
+            Address address = (Address) entidadeDominio;
             if(
-                endereco.getCep().isEmpty() ||
-                endereco.getLogradouro().isEmpty() ||
-                endereco.getNomeLogradouro().isEmpty() ||
-                endereco.getNumero() == null || endereco.getNumero() == 0
+                address.getCode().isEmpty() ||
+                address.getAddress().isEmpty() ||
+                address.getNameAddress().isEmpty() ||
+                address.getNumber() == null || address.getNumber() == 0
             ){
                 return " - os campos: Cep, Logradouro, Nome logradouro e Numero são obrigatórios";
             }

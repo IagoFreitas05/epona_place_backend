@@ -13,22 +13,22 @@ public class Facade implements IFacade{
 
     private Map<String, JpaRepository> repositorys;
     private Map<String, List<IStrategy>> strategys;
-    private final EnderecoRepository enderecoRepository;
+    private final AddressRepository addressRepository;
+    private final ClientRepository clientRepository;
     private final LogRepository logRepository;
-
     private ValidarDadosObrigatoriosEndereco validarDadosObrigatoriosEndereco;
 
     public Facade(
-                  EnderecoRepository enderecoRepository,
+                  AddressRepository addressRepository,
                   LogRepository logRepository,
-
-                  ValidarDadosObrigatoriosEndereco validarDadosObrigatoriosEndereco
+                  ValidarDadosObrigatoriosEndereco validarDadosObrigatoriosEndereco,
+                  ClientRepository clientRepository
     ){
 
-        this.enderecoRepository = enderecoRepository;
+        this.addressRepository = addressRepository;
         this.logRepository = logRepository;
-
         this.validarDadosObrigatoriosEndereco = validarDadosObrigatoriosEndereco;
+        this.clientRepository = clientRepository;
         initJpa();
         initStrategy();
     }
@@ -86,7 +86,8 @@ public class Facade implements IFacade{
 
     public void initJpa(){
         repositorys = new HashMap<String, JpaRepository>();
-        repositorys.put(Endereco.class.getName(),enderecoRepository);
+        repositorys.put(Address.class.getName(), addressRepository);
+        repositorys.put(Address.class.getName(), clientRepository);
         repositorys.put(Log.class.getName(), logRepository);
     }
 
@@ -95,7 +96,7 @@ public class Facade implements IFacade{
         List<IStrategy> validateEstudante = new ArrayList<IStrategy>();
         List<IStrategy> validateEndereco = new ArrayList<IStrategy>();
         validateEndereco.add(validarDadosObrigatoriosEndereco);
-        strategys.put(Endereco.class.getName(), validateEndereco);
+        strategys.put(Address.class.getName(), validateEndereco);
     }
 
     public String executarStrategy(EntidadeDominio entidade){

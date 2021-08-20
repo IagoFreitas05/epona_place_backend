@@ -1,10 +1,9 @@
 package main.place.rest;
 
 import lombok.RequiredArgsConstructor;
-import main.place.entity.Endereco;
+import main.place.entity.Address;
 import main.place.entity.EntidadeDominio;
 import main.place.facade.Facade;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -13,18 +12,18 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("schoolar/estudante/endereco")
 
-public class EnderecoController {
+public class AddressController {
     private final Facade facade;
 
     @GetMapping("{id}")
     @CrossOrigin
-    public Optional<EntidadeDominio> consultarPorParametro(@PathVariable Integer id, Endereco endereco){
-        return facade.consultar(id,endereco);
+    public Optional<EntidadeDominio> consultarPorParametro(@PathVariable Integer id, Address address){
+        return facade.consultar(id, address);
     }
 
     @PutMapping
     @CrossOrigin
-    public String alterar(@RequestBody Endereco endereco){
-        return facade.alterar(endereco);
+    public String alterar(@RequestBody Address address){
+        return facade.alterar(address);
     }
 }
