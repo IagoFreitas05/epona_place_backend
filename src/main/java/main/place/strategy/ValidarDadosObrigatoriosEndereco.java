@@ -11,7 +11,7 @@ public class ValidarDadosObrigatoriosEndereco implements  IStrategy{
         if(entidadeDominio instanceof Address){
             Address address = (Address) entidadeDominio;
             if(
-                address.getCode().isEmpty() ||
+                address.getPostalCode().isEmpty() ||
                 address.getAddress().isEmpty() ||
                 address.getNameAddress().isEmpty() ||
                 address.getNumber() == null || address.getNumber() == 0

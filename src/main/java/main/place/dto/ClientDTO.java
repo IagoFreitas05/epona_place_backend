@@ -23,7 +23,7 @@ public class ClientDTO {
     private String nameAddress;
     private Integer number;
     private String complement;
-    private String code;
+    private String postalCode;
     private String category;
     private String observation;
 }

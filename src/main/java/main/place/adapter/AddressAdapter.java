@@ -2,7 +2,9 @@ package main.place.adapter;
 
 import main.place.dto.ClientDTO;
 import main.place.entity.Address;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AddressAdapter {
 public Address adapt(ClientDTO clientDTO){
     Address address = new Address();
@@ -10,7 +12,7 @@ public Address adapt(ClientDTO clientDTO){
     address.setNameAddress(clientDTO.getNameAddress());
     address.setTypeAddress(clientDTO.getTypeAddress());
     address.setCategory(clientDTO.getCategory());
-    address.setCode(clientDTO.getCode());
+    address.setPostalCode(clientDTO.getPostalCode());
     address.setComplement(clientDTO.getComplement());
     address.setCountry(clientDTO.getCountry());
     address.setObservation(clientDTO.getObservation());

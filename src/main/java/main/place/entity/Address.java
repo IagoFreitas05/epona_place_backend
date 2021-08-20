@@ -31,7 +31,8 @@ public class Address extends  EntidadeDominio{
 
     private String complement;
 
-    private String code;
+    @Column(name ="postal_code")
+    private String postalCode;
 
     @Column(name = "id_user")
     private Integer idUser;

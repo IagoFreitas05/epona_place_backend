@@ -2,7 +2,9 @@ package main.place.adapter;
 
 import main.place.dto.ClientDTO;
 import main.place.entity.Client;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ClientAdapter {
     public Client adapt(ClientDTO clientDTO){
         Client client = new Client();
