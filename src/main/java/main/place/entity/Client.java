@@ -21,7 +21,7 @@ public class Client extends  EntidadeDominio{
     @Column(name = "last_name")
     private String lastName;
 
-    private Integer cpf;
+    private String cpf;
     private Date birthday;
     private String celphone;
     private String gender;

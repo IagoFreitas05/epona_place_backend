@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("schoolar/estudante/endereco")
+@RequestMapping("place/address")
 
 public class AddressController {
     private final Facade facade;

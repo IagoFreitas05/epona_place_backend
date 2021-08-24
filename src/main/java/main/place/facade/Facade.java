@@ -84,16 +84,16 @@ public class Facade implements IFacade{
         return repository.findAll();
     }
 
+    /* ações */
     public void initJpa(){
         repositorys = new HashMap<String, JpaRepository>();
         repositorys.put(Address.class.getName(), addressRepository);
-        repositorys.put(Address.class.getName(), clientRepository);
+        repositorys.put(Client.class.getName(), clientRepository);
         repositorys.put(Log.class.getName(), logRepository);
     }
 
     public void initStrategy(){
         strategys = new HashMap<String, List<IStrategy>>();
-        List<IStrategy> validateEstudante = new ArrayList<IStrategy>();
         List<IStrategy> validateEndereco = new ArrayList<IStrategy>();
         validateEndereco.add(validarDadosObrigatoriosEndereco);
         strategys.put(Address.class.getName(), validateEndereco);

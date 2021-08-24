@@ -12,10 +12,11 @@ import main.place.facade.Facade;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+
 
 @RestController
 @RequiredArgsConstructor
+
 @RequestMapping("place/client")
 
 public class ClientController {
@@ -24,7 +25,7 @@ public class ClientController {
     private final AddressAdapter addressAdapter;
 
     @PostMapping
-    @CrossOrigin
+    @CrossOrigin()
     @ResponseStatus(HttpStatus.CREATED)
     public String save(@RequestBody ClientDTO clientDTO){
         Address address = addressAdapter.adapt(clientDTO);
@@ -41,7 +42,6 @@ public class ClientController {
         if(entityAddress instanceof ReturnMessage){
             return ((ReturnMessage) entityAddress).getReturnMessage();
         }
-
         return "Cliente cadastrado com sucesso";
     }
 }

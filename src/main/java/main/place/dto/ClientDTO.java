@@ -10,7 +10,7 @@ import java.util.Date;
 public class ClientDTO {
     private String name;
     private String lastName;
-    private Integer cpf;
+    private String cpf;
     private Date birthday;
     private String celphone;
     private String gender;

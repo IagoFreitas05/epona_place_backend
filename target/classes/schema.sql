@@ -19,5 +19,8 @@ CREATE TABLE ADDRESS(
     state varchar(100),
     number varchar(10),
     complement varchar(200),
-
+    postal_code varchar(100),
+    id_user int,
+    category varchar(100),
+    observation varchar(100)
 )
