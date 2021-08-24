@@ -22,7 +22,7 @@ public class Client extends  EntidadeDominio{
     private String lastName;
 
     private String cpf;
-    private Date birthday;
+    private String birthday;
     private String celphone;
     private String gender;
     private String mail;
