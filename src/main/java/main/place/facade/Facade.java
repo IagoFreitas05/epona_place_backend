@@ -16,19 +16,28 @@ public class Facade implements IFacade{
     private final AddressRepository addressRepository;
     private final ClientRepository clientRepository;
     private final LogRepository logRepository;
-    private ValidarDadosObrigatoriosEndereco validarDadosObrigatoriosEndereco;
+    private final ValidarDadosObrigatoriosEndereco validarDadosObrigatoriosEndereco;
+    private final ValidateExistence validateExistence;
+    private final ValidateCpf validateCpf;
+    private final ValidateClientMandatoryData validateClientMandatoryData;
 
     public Facade(
                   AddressRepository addressRepository,
                   LogRepository logRepository,
                   ValidarDadosObrigatoriosEndereco validarDadosObrigatoriosEndereco,
-                  ClientRepository clientRepository
+                  ClientRepository clientRepository,
+                  ValidateExistence validateExistence,
+                  ValidateCpf validateCpf,
+                  ValidateClientMandatoryData validateClientMandatoryData
     ){
 
         this.addressRepository = addressRepository;
         this.logRepository = logRepository;
         this.validarDadosObrigatoriosEndereco = validarDadosObrigatoriosEndereco;
         this.clientRepository = clientRepository;
+        this.validateExistence = validateExistence;
+        this.validateCpf = validateCpf;
+        this.validateClientMandatoryData = validateClientMandatoryData;
         initJpa();
         initStrategy();
     }
@@ -94,9 +103,19 @@ public class Facade implements IFacade{
 
     public void initStrategy(){
         strategys = new HashMap<String, List<IStrategy>>();
+
+        //endereço
         List<IStrategy> validateEndereco = new ArrayList<IStrategy>();
         validateEndereco.add(validarDadosObrigatoriosEndereco);
+
+        //usuario
+        List<IStrategy> validateUser = new ArrayList<IStrategy>();
+        validateUser.add(validateExistence);
+        validateUser.add(validateCpf);
+        validateUser.add(validateClientMandatoryData);
+
         strategys.put(Address.class.getName(), validateEndereco);
+        strategys.put(Client.class.getName(), validateUser);
     }
 
     public String executarStrategy(EntidadeDominio entidade){
