@@ -3,6 +3,7 @@ package main.place.rest;
 import lombok.RequiredArgsConstructor;
 import main.place.entity.Address;
 import main.place.entity.EntidadeDominio;
+import main.place.entity.ReturnMessage;
 import main.place.facade.Facade;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,5 +26,15 @@ public class AddressController {
     @CrossOrigin
     public String alterar(@RequestBody Address address){
         return facade.alterar(address);
+    }
+
+    @PostMapping
+    @CrossOrigin
+    public String salvar(@RequestBody Address address){
+        EntidadeDominio entity = facade.salvar(address);
+        if(entity instanceof ReturnMessage){
+            return ((ReturnMessage) entity).getReturnMessage();
+        }
+        return "salvo com sucesso";
     }
 }

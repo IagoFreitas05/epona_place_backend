@@ -24,3 +24,13 @@ CREATE TABLE ADDRESS(
     category varchar(100),
     observation varchar(100)
 )
+
+CREATE TABLE CREDIT_CARD(
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    card_number varchar(50),
+    cvv varchar(10),
+    flag varchar(30),
+    expire_date varchar(30),
+    card_name varchar(10),
+    id_user int
+)

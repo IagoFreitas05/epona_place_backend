@@ -27,7 +27,7 @@ CREATE TABLE ADDRESS(
 
 CREATE TABLE CREDIT_CARD(
     id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    card_number varchar(20),
+    card_number varchar(50),
     cvv varchar(10),
     flag varchar(30),
     expire_date varchar(30),

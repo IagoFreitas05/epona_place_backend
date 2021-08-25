@@ -12,17 +12,17 @@ public class CreditCard extends EntidadeDominio{
     private Integer id;
 
     @Column(name ="card_number")
-    private String card_number;
+    private String cardNumber;
 
     private String cvv;
 
     private String flag;
 
     @Column(name ="expire_date")
-    private String expire_date;
+    private String expireDate;
 
     @Column(name = "card_name")
-    private String card_name;
+    private String cardName;
 
     @Column(name = "idUser")
     private Integer idUser;

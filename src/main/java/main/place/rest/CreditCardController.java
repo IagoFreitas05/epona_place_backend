@@ -25,4 +25,8 @@ public class CreditCardController {
         }
         return "salvo com sucesso";
     }
+
+    @PutMapping
+    @CrossOrigin
+    public String alterar(@RequestBody CreditCard creditCard){return facade.alterar(creditCard);}
 }
