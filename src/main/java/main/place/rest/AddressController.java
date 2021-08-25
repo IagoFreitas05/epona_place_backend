@@ -5,6 +5,7 @@ import main.place.entity.Address;
 import main.place.entity.EntidadeDominio;
 import main.place.entity.ReturnMessage;
 import main.place.facade.Facade;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -37,4 +38,9 @@ public class AddressController {
         }
         return "salvo com sucesso";
     }
+
+    @DeleteMapping("{id}")
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Integer id, Address address ){ facade.deletar(id,  address);}
 }

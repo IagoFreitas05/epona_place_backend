@@ -1,6 +1,7 @@
 package main.place.rest;
 
 import lombok.RequiredArgsConstructor;
+import main.place.entity.Address;
 import main.place.entity.CreditCard;
 import main.place.entity.EntidadeDominio;
 import main.place.entity.ReturnMessage;
@@ -29,4 +30,9 @@ public class CreditCardController {
     @PutMapping
     @CrossOrigin
     public String alterar(@RequestBody CreditCard creditCard){return facade.alterar(creditCard);}
+
+    @DeleteMapping("{id}")
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Integer id, CreditCard creditCard ){ facade.deletar(id,  creditCard);}
 }
