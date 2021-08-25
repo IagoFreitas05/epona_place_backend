@@ -9,6 +9,9 @@ import main.place.facade.Facade;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("place/creditcard")
@@ -35,4 +38,16 @@ public class CreditCardController {
     @CrossOrigin
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Integer id, CreditCard creditCard ){ facade.deletar(id,  creditCard);}
+
+    @GetMapping("{id}")
+    @CrossOrigin
+    public Optional<EntidadeDominio> consultarPorParametro(@PathVariable Integer id, CreditCard creditCard){
+        return facade.consultar(id, creditCard);
+    }
+
+    @GetMapping()
+    @CrossOrigin
+    public List<EntidadeDominio> mostrarTodos(CreditCard creditCard){
+        return facade.mostrarTodos(creditCard);
+    }
 }

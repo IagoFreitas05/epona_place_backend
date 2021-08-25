@@ -8,6 +8,7 @@ import main.place.facade.Facade;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -21,6 +22,12 @@ public class AddressController {
     @CrossOrigin
     public Optional<EntidadeDominio> consultarPorParametro(@PathVariable Integer id, Address address){
         return facade.consultar(id, address);
+    }
+
+    @GetMapping()
+    @CrossOrigin
+    public List<EntidadeDominio> mostrarTodos(Address address){
+        return facade.mostrarTodos(address);
     }
 
     @PutMapping

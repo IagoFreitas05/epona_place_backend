@@ -4,14 +4,12 @@ import lombok.RequiredArgsConstructor;
 import main.place.adapter.AddressAdapter;
 import main.place.adapter.ClientAdapter;
 import main.place.dto.ClientDTO;
-import main.place.entity.Address;
-import main.place.entity.Client;
-import main.place.entity.EntidadeDominio;
-import main.place.entity.ReturnMessage;
+import main.place.entity.*;
 import main.place.facade.Facade;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 
 
 @RestController
@@ -43,5 +41,11 @@ public class ClientController {
             return ((ReturnMessage) entityAddress).getReturnMessage();
         }
         return "Cliente cadastrado com sucesso";
+    }
+
+    @GetMapping("{id}")
+    @CrossOrigin
+    public Optional<EntidadeDominio> consultarPorParametro(@PathVariable Integer id, Client client){
+        return facade.consultar(id, client);
     }
 }
