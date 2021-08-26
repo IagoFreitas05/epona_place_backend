@@ -7,6 +7,7 @@ import main.place.dto.ClientDTO;
 import main.place.entity.*;
 import main.place.facade.Facade;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -21,11 +22,13 @@ public class ClientController {
     private final Facade facade;
     private final ClientAdapter clientAdapter;
     private final AddressAdapter addressAdapter;
+    private final PasswordEncoder passwordEncoder;
 
     @PostMapping
     @CrossOrigin()
     @ResponseStatus(HttpStatus.CREATED)
     public String save(@RequestBody ClientDTO clientDTO){
+        clientDTO.setPassword(passwordEncoder.encode(clientDTO.getPassword()));
         Address address = addressAdapter.adapt(clientDTO);
         User user = clientAdapter.adapt(clientDTO);
 

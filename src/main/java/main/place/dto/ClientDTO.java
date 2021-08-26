@@ -16,6 +16,7 @@ public class ClientDTO {
     private String gender;
     private String mail;
     private String password;
+    private String role;
     private String typeAddress;
     private String country;
     private String state;

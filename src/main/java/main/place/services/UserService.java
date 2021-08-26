@@ -1,8 +1,8 @@
 package main.place.services;
 
+import main.place.entity.User;
 import main.place.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,14 +20,13 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        if(!username.equals("")){
-            throw new UsernameNotFoundException("usuário não encontrado");
-        }
-        return User
+        main.place.entity.User user =  userRepository.findByMail(username).orElseThrow(()-> new UsernameNotFoundException("Usuário não encontrado na base de dados"));
+
+        return org.springframework.security.core.userdetails.User
                 .builder()
-                .username("place")
-                .password(encoder.encode("123"))
-                .roles("USER")
+                .username(user.getMail())
+                .password(user.getPassword())
+                .roles(user.getRole())
                 .build();
     }
 }
