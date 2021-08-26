@@ -14,7 +14,7 @@ public class Facade implements IFacade{
     private Map<String, JpaRepository> repositorys;
     private Map<String, List<IStrategy>> strategys;
     private final AddressRepository addressRepository;
-    private final ClientRepository clientRepository;
+    private final UserRepository userRepository;
     private final LogRepository logRepository;
     private final ValidarDadosObrigatoriosEndereco validarDadosObrigatoriosEndereco;
     private final ValidateExistence validateExistence;
@@ -27,7 +27,7 @@ public class Facade implements IFacade{
                   AddressRepository addressRepository,
                   LogRepository logRepository,
                   ValidarDadosObrigatoriosEndereco validarDadosObrigatoriosEndereco,
-                  ClientRepository clientRepository,
+                  UserRepository userRepository,
                   ValidateExistence validateExistence,
                   ValidateCpf validateCpf,
                   ValidateClientMandatoryData validateClientMandatoryData,
@@ -37,7 +37,7 @@ public class Facade implements IFacade{
         this.addressRepository = addressRepository;
         this.logRepository = logRepository;
         this.validarDadosObrigatoriosEndereco = validarDadosObrigatoriosEndereco;
-        this.clientRepository = clientRepository;
+        this.userRepository = userRepository;
         this.validateExistence = validateExistence;
         this.validateCpf = validateCpf;
         this.validateClientMandatoryData = validateClientMandatoryData;
@@ -102,7 +102,7 @@ public class Facade implements IFacade{
     public void initJpa(){
         repositorys = new HashMap<String, JpaRepository>();
         repositorys.put(Address.class.getName(), addressRepository);
-        repositorys.put(Client.class.getName(), clientRepository);
+        repositorys.put(User.class.getName(), userRepository);
         repositorys.put(Log.class.getName(), logRepository);
         repositorys.put(CreditCard.class.getName(), creditCardRepository);
     }
@@ -127,7 +127,7 @@ public class Facade implements IFacade{
 
         /* mapeamento geral */
         strategys.put(Address.class.getName(), validateEndereco);
-        strategys.put(Client.class.getName(), validateUser);
+        strategys.put(User.class.getName(), validateUser);
         strategys.put(CreditCard.class.getName(), validateCreditCard);
     }
 

@@ -1,21 +1,21 @@
 package main.place.adapter;
 
 import main.place.dto.ClientDTO;
-import main.place.entity.Client;
+import main.place.entity.User;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ClientAdapter {
-    public Client adapt(ClientDTO clientDTO){
-        Client client = new Client();
-        client.setName(clientDTO.getName());
-        client.setLastName(clientDTO.getLastName());
-        client.setBirthday(clientDTO.getBirthday());
-        client.setCelphone(clientDTO.getCelphone());
-        client.setCpf(clientDTO.getCpf());
-        client.setGender(clientDTO.getGender());
-        client.setMail(clientDTO.getMail());
-        client.setPassword(clientDTO.getPassword());
-        return client;
+    public User adapt(ClientDTO clientDTO){
+        User user = new User();
+        user.setName(clientDTO.getName());
+        user.setLastName(clientDTO.getLastName());
+        user.setBirthday(clientDTO.getBirthday());
+        user.setCelphone(clientDTO.getCelphone());
+        user.setCpf(clientDTO.getCpf());
+        user.setGender(clientDTO.getGender());
+        user.setMail(clientDTO.getMail());
+        user.setPassword(clientDTO.getPassword());
+        return user;
     }
 }

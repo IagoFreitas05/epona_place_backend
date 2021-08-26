@@ -1,6 +1,6 @@
 package main.place.strategy;
 
-import main.place.entity.Client;
+import main.place.entity.User;
 import main.place.entity.EntidadeDominio;
 import org.springframework.stereotype.Component;
 
@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 public class ValidateCpf implements IStrategy{
     @Override
     public String processar(EntidadeDominio entidadeDominio) {
-        if(entidadeDominio instanceof Client){
-            Client client = (Client) entidadeDominio;
-            String CPF = client.getCpf();
+        if(entidadeDominio instanceof User){
+            User user = (User) entidadeDominio;
+            String CPF = user.getCpf();
             if (CPF.equals("00000000000") ||
                     CPF.equals("11111111111") ||
                     CPF.equals("22222222222") || CPF.equals("33333333333") ||

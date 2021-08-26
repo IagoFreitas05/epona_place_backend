@@ -1,4 +1,4 @@
-CREATE TABLE CLIENT(
+CREATE TABLE USER(
     id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     name varchar(200) NOT NULL,
     last_name varchar(200) NOT NULL,
@@ -7,7 +7,8 @@ CREATE TABLE CLIENT(
     celphone varchar(20) NOT NULL,
     gender varchar(20) NOT NULL,
     mail varchar(50) NOT NULL,
-    password varchar(100) NOT NULL
+    password varchar(100) NOT NULL,
+    role varchar(100) NOT NULL
 )
 
 CREATE TABLE ADDRESS(

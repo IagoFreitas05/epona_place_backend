@@ -27,15 +27,15 @@ public class ClientController {
     @ResponseStatus(HttpStatus.CREATED)
     public String save(@RequestBody ClientDTO clientDTO){
         Address address = addressAdapter.adapt(clientDTO);
-        Client  client = clientAdapter.adapt(clientDTO);
+        User user = clientAdapter.adapt(clientDTO);
 
-        EntidadeDominio entityClient = facade.salvar(client);
+        EntidadeDominio entityClient = facade.salvar(user);
         if(entityClient instanceof ReturnMessage){
             return ((ReturnMessage) entityClient).getReturnMessage();
         }
-        Client clientSaved = (Client) entityClient;
+        User userSaved = (User) entityClient;
 
-        address.setIdUser(clientSaved.getId());
+        address.setIdUser(userSaved.getId());
         EntidadeDominio entityAddress = facade.salvar(address);
         if(entityAddress instanceof ReturnMessage){
             return ((ReturnMessage) entityAddress).getReturnMessage();
@@ -45,7 +45,7 @@ public class ClientController {
 
     @GetMapping("{id}")
     @CrossOrigin
-    public Optional<EntidadeDominio> consultarPorParametro(@PathVariable Integer id, Client client){
-        return facade.consultar(id, client);
+    public Optional<EntidadeDominio> consultarPorParametro(@PathVariable Integer id, User user){
+        return facade.consultar(id, user);
     }
 }

@@ -1,6 +1,5 @@
 package main.place.strategy;
 
-import main.place.entity.Client;
 import main.place.entity.CreditCard;
 import main.place.entity.EntidadeDominio;
 import org.springframework.stereotype.Component;
