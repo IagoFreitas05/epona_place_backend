@@ -36,4 +36,5 @@ public class User extends  EntidadeDominio{
     private String password;
     @Column
     private String role;
+
 }

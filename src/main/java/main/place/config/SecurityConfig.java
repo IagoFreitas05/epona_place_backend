@@ -1,5 +1,7 @@
 package main.place.config;
 
+import main.place.securityjwt.JwtAuthFilter;
+import main.place.securityjwt.JwtService;
 import main.place.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -9,8 +11,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -18,14 +23,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserService user;
 
+    @Autowired
+    private JwtService jwtService;
+
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    public OncePerRequestFilter jwtFilter(){
+        return new JwtAuthFilter(jwtService, user);
+    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-        /* para fazer testes, iremos fazer configuração em memoria de um usuario, com roles*/
         auth
                 .userDetailsService(user)
         .passwordEncoder(passwordEncoder());
@@ -40,14 +52,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .hasRole("USER")
                     .antMatchers("/place/client/{id}")
                         .hasRole("USER")
+                    .antMatchers(HttpMethod.GET,"/place/auth")
+                        .authenticated()
                     .and()
-                        .httpBasic();
-
+                        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                    .and()
+                        .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception{
-        web.ignoring().antMatchers(HttpMethod.POST,"/place/client");
+        web.ignoring().antMatchers("/place/client");
         web.ignoring().antMatchers("/place/auth");
     }
 }

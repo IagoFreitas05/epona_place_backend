@@ -1,4 +1,4 @@
-package main.place.services;
+package main.place.securityjwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;

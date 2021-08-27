@@ -1,6 +1,7 @@
 package main.place.services;
 
 import main.place.entity.User;
+import main.place.exception.PasswordWrongException;
 import main.place.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +18,15 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
+
+    public UserDetails doAuth(User user){
+      UserDetails userLoaded = loadUserByUsername(user.getMail());
+      boolean isValidPassword = encoder.matches(user.getPassword(), userLoaded.getPassword());
+      if(isValidPassword){
+          return userLoaded;
+      }
+      throw new PasswordWrongException();
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

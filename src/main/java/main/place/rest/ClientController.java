@@ -43,7 +43,7 @@ public class ClientController {
         if(entityAddress instanceof ReturnMessage){
             return ((ReturnMessage) entityAddress).getReturnMessage();
         }
-        return "Cliente cadastrado com sucesso";
+        return "sucesso";
     }
 
     @GetMapping("{id}")
