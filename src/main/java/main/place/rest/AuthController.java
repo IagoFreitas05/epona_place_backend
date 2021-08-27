@@ -32,6 +32,7 @@ public class AuthController {
     private final UserRepository userRepository;
 
     @PostMapping
+    @CrossOrigin
     public TokenDTO auth(@RequestBody CredentialsDTO credentialsDTO){
         User user = userLoginAdapter.adapt(credentialsDTO);
         try{
@@ -46,7 +47,10 @@ public class AuthController {
     }
 
     @GetMapping
+    @CrossOrigin
     public Optional<User>  loggedUser(){
+
+        //criar um profile .DTO para retornar todas as informações dele e carregar na página
         Authentication data = SecurityContextHolder.getContext().getAuthentication();
         return userRepository.findByMail(data.getName());
     }
