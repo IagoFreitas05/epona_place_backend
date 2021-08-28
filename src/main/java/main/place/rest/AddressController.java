@@ -5,6 +5,7 @@ import main.place.entity.Address;
 import main.place.entity.EntidadeDominio;
 import main.place.entity.ReturnMessage;
 import main.place.facade.Facade;
+import main.place.repository.AddressRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,7 @@ import java.util.Optional;
 
 public class AddressController {
     private final Facade facade;
+    private final AddressRepository addressRepository;
 
     @GetMapping("{id}")
     @CrossOrigin
@@ -50,4 +52,10 @@ public class AddressController {
     @CrossOrigin
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Integer id, Address address ){ facade.deletar(id,  address);}
+
+    @GetMapping("findByUserId/{id}")
+    @CrossOrigin
+    public List<Address> findByUserId(@PathVariable Integer id){
+        return addressRepository.findByIdUser(id);
+    }
 }

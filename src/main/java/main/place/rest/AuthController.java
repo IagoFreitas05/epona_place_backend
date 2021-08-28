@@ -21,6 +21,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 
@@ -54,7 +56,7 @@ public class AuthController {
     public ClientDTO loggedUser(){
         Authentication data = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) userRepository.findByMail(data.getName());
-        Address address = addressRepository.findByIdUser(user.getId());
+        List<Address> address = addressRepository.findByIdUser(user.getId());
 
         return buildClientDTO.build(user, address);
     }

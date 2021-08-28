@@ -7,6 +7,8 @@ import main.place.entity.Address;
 import main.place.entity.User;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @Data
 @AllArgsConstructor
@@ -14,21 +16,21 @@ public class AdapterBuildClientDTO {
     private final ClientAdapter clientAdapter;
     private final AddressAdapter addressAdapter;
 
-    public ClientDTO build(User user, Address address){
+    public ClientDTO build(User user, List<Address> address){
         ClientDTO dto = new ClientDTO();
-        dto.setIdAddress(address.getId());
-        dto.setCity(address.getCity());
+        dto.setIdAddress(address.get(0).getId());
+        dto.setCity(address.get(0).getCity());
         dto.setIdUser(user.getId());
-        dto.setAddress(address.getAddress());
-        dto.setNameAddress(address.getNameAddress());
-        dto.setTypeAddress(address.getTypeAddress());
-        dto.setCategory(address.getCategory());
-        dto.setPostalCode(address.getPostalCode());
-        dto.setComplement(address.getComplement());
-        dto.setCountry(address.getCountry());
-        dto.setObservation(address.getObservation());
-        dto.setNumber(address.getNumber());
-        dto.setState(address.getState());
+        dto.setAddress(address.get(0).getAddress());
+        dto.setNameAddress(address.get(0).getNameAddress());
+        dto.setTypeAddress(address.get(0).getTypeAddress());
+        dto.setCategory(address.get(0).getCategory());
+        dto.setPostalCode(address.get(0).getPostalCode());
+        dto.setComplement(address.get(0).getComplement());
+        dto.setCountry(address.get(0).getCountry());
+        dto.setObservation(address.get(0).getObservation());
+        dto.setNumber(address.get(0).getNumber());
+        dto.setState(address.get(0).getState());
         dto.setName(user.getName());
         dto.setLastName(user.getLastName());
         dto.setBirthday(user.getBirthday());
