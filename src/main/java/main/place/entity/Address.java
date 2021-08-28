@@ -11,6 +11,8 @@ import javax.persistence.*;
 @Getter
 @Setter
 public class Address extends  EntidadeDominio{
+
+    /*adicionar campo city*/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -40,4 +42,6 @@ public class Address extends  EntidadeDominio{
     private String category;
 
     private String observation;
+
+    private String city;
 }

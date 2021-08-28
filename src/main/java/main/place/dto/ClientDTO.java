@@ -8,6 +8,8 @@ import java.util.Date;
 
 @Data
 public class ClientDTO {
+    private Integer idUser;
+    private Integer idAddress;
     private String name;
     private String lastName;
     private String cpf;
@@ -23,8 +25,10 @@ public class ClientDTO {
     private String address;
     private String nameAddress;
     private Integer number;
+    private String city;
     private String complement;
     private String postalCode;
     private String category;
     private String observation;
+    private String actualPassword;
 }

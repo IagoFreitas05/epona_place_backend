@@ -30,8 +30,7 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        main.place.entity.User user =  userRepository.findByMail(username).orElseThrow(()-> new UsernameNotFoundException("Usuário não encontrado na base de dados"));
-
+        main.place.entity.User user =  userRepository.findByMail(username);
         return org.springframework.security.core.userdetails.User
                 .builder()
                 .username(user.getMail())

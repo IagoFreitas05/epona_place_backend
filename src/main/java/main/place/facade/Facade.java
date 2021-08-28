@@ -98,6 +98,9 @@ public class Facade implements IFacade{
         return repository.findAll();
     }
 
+
+
+
     /* ações */
     public void initJpa(){
         repositorys = new HashMap<String, JpaRepository>();

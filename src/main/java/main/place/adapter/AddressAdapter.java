@@ -1,10 +1,14 @@
 package main.place.adapter;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import main.place.dto.ClientDTO;
 import main.place.entity.Address;
 import org.springframework.stereotype.Component;
 
 @Component
+@Data
+@AllArgsConstructor
 public class AddressAdapter {
 public Address adapt(ClientDTO clientDTO){
     Address address = new Address();
@@ -18,6 +22,7 @@ public Address adapt(ClientDTO clientDTO){
     address.setObservation(clientDTO.getObservation());
     address.setNumber(clientDTO.getNumber());
     address.setState(clientDTO.getState());
+    address.setCity(clientDTO.getCity());
     return address;
     }
 }

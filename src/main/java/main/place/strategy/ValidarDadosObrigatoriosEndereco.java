@@ -15,11 +15,11 @@ public class ValidarDadosObrigatoriosEndereco implements  IStrategy{
                 address.getAddress().isEmpty() ||
                 address.getNameAddress().isEmpty() ||
                 address.getNumber() == null || address.getNumber() == 0 ||
-                address.getTypeAddress() == null ||
-                address.getNameAddress() == null ||
-                address.getCategory() == null ||
-                address.getState() == null ||
-                address.getCountry() == null
+                address.getTypeAddress() .isEmpty() ||
+                address.getCategory().isEmpty() ||
+                address.getState().isEmpty() ||
+                address.getCountry().isEmpty() ||
+                address.getCity().isEmpty()
             ){
                 return " - os campos: Cep, Logradouro, Nome logradouro e Numero, País, estado, tipo logradouro e nome do endereço são obrigatórios";
             }

@@ -46,6 +46,28 @@ public class ClientController {
         return "sucesso";
     }
 
+    @PutMapping
+    @CrossOrigin
+    public String alterar(@RequestBody ClientDTO clientDTO){
+        if(!clientDTO.getPassword().isEmpty()){
+            clientDTO.setPassword(passwordEncoder.encode(clientDTO.getPassword()));
+        }
+
+        Address address = addressAdapter.adapt(clientDTO);
+        User user = clientAdapter.adapt(clientDTO);
+        user.setId(clientDTO.getIdUser());
+        address.setId(clientDTO.getIdAddress());
+        address.setIdUser(clientDTO.getIdUser());
+
+        StringBuilder res = new StringBuilder();
+        String resUser =  facade.alterar(user);
+        String resAddress =  facade.alterar(address);
+
+        res.append(resUser);
+        res.append(resAddress);
+        return res.toString();
+    }
+
     @GetMapping("{id}")
     @CrossOrigin
     public Optional<EntidadeDominio> consultarPorParametro(@PathVariable Integer id, User user){

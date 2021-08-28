@@ -25,7 +25,12 @@ public class ClientAdapter {
         user.setCpf(clientDTO.getCpf());
         user.setGender(clientDTO.getGender());
         user.setMail(clientDTO.getMail());
-        user.setPassword(clientDTO.getPassword());
+        if(!clientDTO.getPassword().isEmpty()){
+            user.setPassword(clientDTO.getPassword());
+        }
+        else{
+            user.setPassword(clientDTO.getActualPassword());
+        }
         user.setRole("USER");
         return user;
     }

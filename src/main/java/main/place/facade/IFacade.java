@@ -12,4 +12,5 @@ public interface IFacade {
     Optional<EntidadeDominio> consultar(Integer id, EntidadeDominio entidadeDominio);
     List<EntidadeDominio> mostrarTodos(EntidadeDominio entidadeDominio);
     String alterar(EntidadeDominio entidadeDominio);
+
 }

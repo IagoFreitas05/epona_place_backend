@@ -24,6 +24,6 @@ public class CreditCard extends EntidadeDominio{
     @Column(name = "card_name")
     private String cardName;
 
-    @Column(name = "idUser")
+    @Column(name = "id_user")
     private Integer idUser;
 }

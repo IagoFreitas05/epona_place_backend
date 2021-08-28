@@ -52,6 +52,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .hasRole("USER")
                     .antMatchers("/place/client/{id}")
                         .hasRole("USER")
+                    .antMatchers(HttpMethod.PUT,"/place/client")
+                        .hasRole("USER")
+                    .antMatchers("/place/creditCard")
+                        .permitAll()
                     .antMatchers(HttpMethod.GET,"/place/auth")
                         .authenticated()
                     .and()
@@ -62,7 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception{
-        web.ignoring().antMatchers("/place/client");
+        web.ignoring().antMatchers(HttpMethod.POST,"/place/client");
         web.ignoring().antMatchers("/place/auth");
     }
 }

@@ -6,6 +6,7 @@ import main.place.entity.CreditCard;
 import main.place.entity.EntidadeDominio;
 import main.place.entity.ReturnMessage;
 import main.place.facade.Facade;
+import main.place.repository.CreditCardRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,10 +15,11 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("place/creditcard")
+@RequestMapping("place/creditCard")
 
 public class CreditCardController {
     private final Facade facade;
+    private final CreditCardRepository creditCardRepository;
 
     @PostMapping
     @CrossOrigin()
@@ -50,4 +52,8 @@ public class CreditCardController {
     public List<EntidadeDominio> mostrarTodos(CreditCard creditCard){
         return facade.mostrarTodos(creditCard);
     }
+
+    @GetMapping("findByUserId/{id}")
+    @CrossOrigin
+    public List<CreditCard> mostrarPorIdUser(@PathVariable Integer id, CreditCard creditCard){return creditCardRepository.findByIdUser(id); }
 }

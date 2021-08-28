@@ -1,12 +1,15 @@
 package main.place.rest;
 
 import lombok.RequiredArgsConstructor;
-import main.place.adapter.ClientAdapter;
+import main.place.adapter.AdapterBuildClientDTO;
 import main.place.adapter.UserLoginAdapter;
+import main.place.dto.ClientDTO;
 import main.place.dto.CredentialsDTO;
 import main.place.dto.TokenDTO;
+import main.place.entity.Address;
 import main.place.entity.User;
 import main.place.exception.PasswordWrongException;
+import main.place.repository.AddressRepository;
 import main.place.repository.UserRepository;
 import main.place.securityjwt.JwtService;
 import main.place.services.UserService;
@@ -18,8 +21,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Optional;
-
 @RestController
 @RequiredArgsConstructor
 
@@ -30,6 +31,8 @@ public class AuthController {
     private final UserLoginAdapter userLoginAdapter;
     private final JwtService jwtService;
     private final UserRepository userRepository;
+    private final AdapterBuildClientDTO buildClientDTO;
+    private final AddressRepository addressRepository;
 
     @PostMapping
     @CrossOrigin
@@ -48,10 +51,11 @@ public class AuthController {
 
     @GetMapping
     @CrossOrigin
-    public Optional<User>  loggedUser(){
-
-        //criar um profile .DTO para retornar todas as informações dele e carregar na página
+    public ClientDTO loggedUser(){
         Authentication data = SecurityContextHolder.getContext().getAuthentication();
-        return userRepository.findByMail(data.getName());
+        User user = (User) userRepository.findByMail(data.getName());
+        Address address = addressRepository.findByIdUser(user.getId());
+
+        return buildClientDTO.build(user, address);
     }
 }
