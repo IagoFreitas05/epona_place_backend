@@ -79,7 +79,7 @@ public class Facade implements IFacade{
         if(strategyAnswer == null){
             JpaRepository repository = repositorys.get(className);
             repository.save(entidadeDominio);
-            return "";
+            return "sucesso";
         }
         return strategyAnswer;
     }

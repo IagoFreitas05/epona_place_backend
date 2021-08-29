@@ -29,12 +29,15 @@ public class CreditCardController {
         if(entity instanceof ReturnMessage){
             return ((ReturnMessage) entity).getReturnMessage();
         }
-        return "salvo com sucesso";
+        return "sucesso";
     }
 
     @PutMapping
     @CrossOrigin
-    public String alterar(@RequestBody CreditCard creditCard){return facade.alterar(creditCard);}
+    public String alterar(@RequestBody CreditCard creditCard){
+        String res = facade.alterar(creditCard);
+        return res;
+    }
 
     @DeleteMapping("{id}")
     @CrossOrigin

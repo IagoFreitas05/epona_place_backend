@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -35,7 +36,8 @@ public class AddressController {
     @PutMapping
     @CrossOrigin
     public String alterar(@RequestBody Address address){
-        return facade.alterar(address);
+        String res = facade.alterar(address);
+        return res;
     }
 
     @PostMapping
@@ -45,7 +47,7 @@ public class AddressController {
         if(entity instanceof ReturnMessage){
             return ((ReturnMessage) entity).getReturnMessage();
         }
-        return "salvo com sucesso";
+            return " ";
     }
 
     @DeleteMapping("{id}")

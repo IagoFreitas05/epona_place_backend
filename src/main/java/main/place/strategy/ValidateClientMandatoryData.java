@@ -13,8 +13,7 @@ public class ValidateClientMandatoryData implements IStrategy {
             if(user.getCpf().isEmpty() ||
                     user.getBirthday().isEmpty() ||
                     user.getName().isEmpty() ||
-                    user.getLastName().isEmpty() ||
-                    user.getCpf().isEmpty()
+                    user.getLastName().isEmpty()
             ){
                 return "- os campos: CPF, Data de Nascimento, Nome, Sobrenome e RG são obrigatórios";
             }
