@@ -7,6 +7,7 @@ import main.place.entity.Product;
 import main.place.entity.ReturnMessage;
 import main.place.facade.Facade;
 import main.place.repository.ProductRepository;
+import main.place.services.UserService;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -20,11 +21,13 @@ import java.util.Optional;
 public class ProductController {
     private final Facade facade;
     private final ProductRepository productRepository;
+    private final UserService userService;
 
     @PostMapping
     @CrossOrigin()
     @ResponseStatus(HttpStatus.CREATED)
     public String save(@RequestBody Product product){
+        product.setIdManager(userService.getLoggedUser().getId());
         EntidadeDominio entity = facade.salvar(product);
         if(entity instanceof ReturnMessage){
             return ((ReturnMessage) entity).getReturnMessage();
@@ -35,6 +38,7 @@ public class ProductController {
     @PutMapping
     @CrossOrigin
     public String alterar(@RequestBody Product product){
+        product.setIdManager(userService.getLoggedUser().getId());
         String res = facade.alterar(product);
         return res;
     }

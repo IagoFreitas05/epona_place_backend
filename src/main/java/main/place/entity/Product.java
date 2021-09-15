@@ -1,10 +1,15 @@
 package main.place.entity;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.*;
 
+import javax.persistence.*;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class Product extends EntidadeDominio{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
