@@ -19,8 +19,12 @@ public class ValidateExistence implements IStrategy {
             User user = (User) entidadeDominio;
             if(user.getId() == null){
                 User search = userRepository.findByCpf(user.getCpf());
+                User searchEmail = userRepository.findByMail(user.getMail());
                 if(search != null){
                     return "- já existe um usuário com este CPF cadastrado";
+                }
+                if(searchEmail != null){
+                    return "- já existe um usuario com este email";
                 }
             }
         }

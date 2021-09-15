@@ -36,8 +36,7 @@ public class AddressController {
     @PutMapping
     @CrossOrigin
     public String alterar(@RequestBody Address address){
-        String res = facade.alterar(address);
-        return res;
+        return facade.alterar(address);
     }
 
     @PostMapping

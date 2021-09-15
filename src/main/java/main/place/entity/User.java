@@ -15,13 +15,10 @@ public class User extends  EntidadeDominio{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     @Column
     private String name;
-
     @Column(name = "last_name")
     private String lastName;
-
     @Column
     private String cpf;
     @Column
