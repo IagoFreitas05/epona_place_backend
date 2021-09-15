@@ -22,6 +22,7 @@ public class Facade implements IFacade{
     private final ValidateClientMandatoryData validateClientMandatoryData;
     private final CreditCardRepository creditCardRepository;
     private final ValidateCreditCardMandatoryData validateCreditCardMandatoryData;
+    private final ProductRepository productRepository;
 
     public Facade(
                   AddressRepository addressRepository,
@@ -32,7 +33,8 @@ public class Facade implements IFacade{
                   ValidateCpf validateCpf,
                   ValidateClientMandatoryData validateClientMandatoryData,
                   CreditCardRepository creditCardRepository,
-                  ValidateCreditCardMandatoryData validateCreditCardMandatoryData
+                  ValidateCreditCardMandatoryData validateCreditCardMandatoryData,
+                  ProductRepository productRepository
     ){
         this.addressRepository = addressRepository;
         this.logRepository = logRepository;
@@ -43,6 +45,7 @@ public class Facade implements IFacade{
         this.validateClientMandatoryData = validateClientMandatoryData;
         this.creditCardRepository = creditCardRepository;
         this.validateCreditCardMandatoryData = validateCreditCardMandatoryData;
+        this.productRepository = productRepository;
         initJpa();
         initStrategy();
     }
@@ -98,9 +101,6 @@ public class Facade implements IFacade{
         return repository.findAll();
     }
 
-
-
-
     /* ações */
     public void initJpa(){
         repositorys = new HashMap<String, JpaRepository>();
@@ -108,6 +108,7 @@ public class Facade implements IFacade{
         repositorys.put(User.class.getName(), userRepository);
         repositorys.put(Log.class.getName(), logRepository);
         repositorys.put(CreditCard.class.getName(), creditCardRepository);
+        repositorys.put(Product.class.getName(), productRepository);
     }
 
     public void initStrategy(){
@@ -126,7 +127,6 @@ public class Facade implements IFacade{
         /*creditcard*/
         List<IStrategy> validateCreditCard = new ArrayList<IStrategy>();
         validateCreditCard.add(validateCreditCardMandatoryData);
-
 
         /* mapeamento geral */
         strategys.put(Address.class.getName(), validateEndereco);
