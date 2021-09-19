@@ -12,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class Cupons {
+public class Cupon  extends EntidadeDominio{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -21,13 +21,13 @@ public class Cupons {
     private String name;
 
     @Column(name = "id_manager")
-    private String idManager;
+    private Integer idManager;
 
     @Column
-    private String quantity;
+    private Integer quantity;
 
     @Column(name= "count_using")
-    private String countUsing;
+    private Integer countUsing;
 
     @Column
     private String type;

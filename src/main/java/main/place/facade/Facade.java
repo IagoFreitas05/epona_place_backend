@@ -23,6 +23,7 @@ public class Facade implements IFacade{
     private final CreditCardRepository creditCardRepository;
     private final ValidateCreditCardMandatoryData validateCreditCardMandatoryData;
     private final ProductRepository productRepository;
+    private final CuponsRepository cuponsRepository;
 
     public Facade(
                   AddressRepository addressRepository,
@@ -34,7 +35,8 @@ public class Facade implements IFacade{
                   ValidateClientMandatoryData validateClientMandatoryData,
                   CreditCardRepository creditCardRepository,
                   ValidateCreditCardMandatoryData validateCreditCardMandatoryData,
-                  ProductRepository productRepository
+                  ProductRepository productRepository,
+                  CuponsRepository cuponsRepository
     ){
         this.addressRepository = addressRepository;
         this.logRepository = logRepository;
@@ -46,6 +48,7 @@ public class Facade implements IFacade{
         this.creditCardRepository = creditCardRepository;
         this.validateCreditCardMandatoryData = validateCreditCardMandatoryData;
         this.productRepository = productRepository;
+        this.cuponsRepository = cuponsRepository;
         initJpa();
         initStrategy();
     }
@@ -109,6 +112,7 @@ public class Facade implements IFacade{
         repositorys.put(Log.class.getName(), logRepository);
         repositorys.put(CreditCard.class.getName(), creditCardRepository);
         repositorys.put(Product.class.getName(), productRepository);
+        repositorys.put(Cupon.class.getName(), cuponsRepository);
     }
 
     public void initStrategy(){

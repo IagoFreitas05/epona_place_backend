@@ -48,3 +48,15 @@ CREATE TABLE CREDIT_CARD
     card_name   varchar(10),
     id_user     int
 )
+
+CREATE TABLE CUPON
+(
+    id          INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    name        varchar(50),
+    id_manager  INT,
+    quantity    int,
+    count_using int,
+    type        varchar(10),
+    value       varchar(30),
+    is_valid    varchar(30)
+)
