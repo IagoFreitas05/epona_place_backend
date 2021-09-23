@@ -60,5 +60,5 @@ public class CuponsController {
     @CrossOrigin
     public List<Cupon> mostrarPorIdUser(@PathVariable Integer id, Cupon cupon){return cuponsRepository.findByIdManager(id); }
 
-    //criar método de usar cupon
+    /*criar método de usar cupon*/
 }

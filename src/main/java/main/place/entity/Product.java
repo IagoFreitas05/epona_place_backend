@@ -29,4 +29,10 @@ public class Product extends EntidadeDominio{
 
     @Column
     private String description;
+
+    @Column(name = "SIZE")
+    private String size;
+
+    @Column(name="sale_price")
+    private String salePrice;
 }

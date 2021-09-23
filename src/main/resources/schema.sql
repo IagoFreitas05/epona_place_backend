@@ -34,8 +34,10 @@ CREATE TABLE PRODUCT
     name        varchar(200),
     description varchar(1000),
     category    varchar(100),
-    value       varchar(20),
-    id_manager  integer
+    value       varchar(100),
+    id_manager  integer,
+    size        varchar(200),
+    sale_price   varchar(100)
 )
 
 CREATE TABLE CREDIT_CARD
@@ -59,4 +61,12 @@ CREATE TABLE CUPON
     type        varchar(10),
     value       varchar(30),
     is_valid    varchar(30)
+)
+
+CREATE TABLE CATEGORY
+(
+    id         INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    category   varchar(200),
+    id_manager int,
+    profit     varchar(50)
 )
