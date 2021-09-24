@@ -40,7 +40,7 @@ public class AdapterBuildClientDTO {
         dto.setMail(user.getMail());
         dto.setPassword(user.getPassword());
         dto.setActualPassword(user.getPassword());
-        dto.setRole("USER");
+        dto.setRole(user.getRole());
         return dto;
     }
 }
