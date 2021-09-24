@@ -1,11 +1,12 @@
 package main.place.rest;
 
 import lombok.RequiredArgsConstructor;
-import main.place.entity.CreditCard;
-import main.place.entity.EntidadeDominio;
-import main.place.entity.Product;
-import main.place.entity.ReturnMessage;
+import main.place.adapter.ProductAdapter;
+import main.place.adapter.ProductInvetoryAdapter;
+import main.place.dto.ProductDTO;
+import main.place.entity.*;
 import main.place.facade.Facade;
+import main.place.repository.ProductInvetoryRepository;
 import main.place.repository.ProductRepository;
 import main.place.services.UserService;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,16 +23,28 @@ public class ProductController {
     private final Facade facade;
     private final ProductRepository productRepository;
     private final UserService userService;
+    private final ProductAdapter productAdapter;
+    private final ProductInvetoryAdapter productInvetoryAdapter;
+
 
     @PostMapping
     @CrossOrigin()
     @ResponseStatus(HttpStatus.CREATED)
-    public String save(@RequestBody Product product){
+    public String save(@RequestBody ProductDTO productDTO){
+        Product product = productAdapter.adapt(productDTO);
+        ProductInvetory productInvetory = productInvetoryAdapter.adapt(productDTO);
+        productInvetory.setIdManager(userService.getLoggedUser().getId());
+
         product.setIdManager(userService.getLoggedUser().getId());
         EntidadeDominio entity = facade.salvar(product);
         if(entity instanceof ReturnMessage){
             return ((ReturnMessage) entity).getReturnMessage();
         }
+
+        Product productSaved = (Product) entity;
+        productInvetory.setIdProduct(productSaved.getId());
+        facade.salvar(productInvetory);
+
         return "sucesso";
     }
 

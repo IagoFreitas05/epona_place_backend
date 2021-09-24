@@ -6,6 +6,7 @@ import main.place.entity.EntidadeDominio;
 import main.place.entity.ReturnMessage;
 import main.place.facade.Facade;
 import main.place.repository.CategoryRepository;
+import main.place.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,7 @@ import java.util.Optional;
 public class CategoryController {
     private final Facade facade;
     private final CategoryRepository categoryRepository;
+    private final UserService userService;
 
     @GetMapping("{id}")
     @CrossOrigin
@@ -40,6 +42,7 @@ public class CategoryController {
     @PostMapping
     @CrossOrigin
     public String salvar(@RequestBody Category category){
+        category.setIdManager(userService.getLoggedUser().getId());
         EntidadeDominio entity = facade.salvar(category);
         if(entity instanceof ReturnMessage){
             return ((ReturnMessage) entity).getReturnMessage();
