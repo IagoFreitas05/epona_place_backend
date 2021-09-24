@@ -37,7 +37,8 @@ CREATE TABLE PRODUCT
     value       varchar(100),
     id_manager  integer,
     size        varchar(200),
-    sale_price   varchar(100)
+    sale_price   varchar(100),
+    image varchar(100)
 )
 
 CREATE TABLE CREDIT_CARD
@@ -69,4 +70,13 @@ CREATE TABLE CATEGORY
     category   varchar(200),
     id_manager int,
     profit     varchar(50)
+)
+
+CREATE TABLE PRODUCT_INVETORY
+(
+    ID                INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    id_manager        INT,
+    id_product        INT,
+    original_quantity INT,
+    current_quantity  INT
 )

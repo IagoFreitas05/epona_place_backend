@@ -71,3 +71,12 @@ CREATE TABLE CATEGORY
     id_manager int,
     profit     varchar(50)
 )
+
+CREATE TABLE PRODUCT_INVETORY
+(
+    ID                INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    id_manager        INT,
+    id_product        INT,
+    original_quantity INT,
+    current_quantity  INT
+)

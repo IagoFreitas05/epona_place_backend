@@ -18,6 +18,7 @@ public class ProductAdapter {
         product.setSize(productDTO.getSize());
         product.setDescription(productDTO.getDescription());
         product.setImage(productDTO.getImage());
+        product.setValue(productDTO.getValue());
         return product;
     }
 }
