@@ -35,4 +35,6 @@ public class Product extends EntidadeDominio{
 
     @Column(name="sale_price")
     private String salePrice;
+
+    private String image;
 }
