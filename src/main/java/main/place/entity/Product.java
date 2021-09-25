@@ -1,7 +1,6 @@
 package main.place.entity;
 
 import lombok.*;
-
 import javax.persistence.*;
 
 @Entity
