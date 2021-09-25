@@ -62,5 +62,18 @@ public class CuponsController {
     @CrossOrigin
     public List<Cupon> mostrarPorIdUser(@PathVariable Integer id, Cupon cupon){return cuponsRepository.findByIdManager(id); }
 
-    /*criar método de usar cupon*/
+    @GetMapping("findByName/{name}")
+    @CrossOrigin
+    public Cupon findByCuponName(@PathVariable String name){return cuponsRepository.findByName(name);}
+
+    @GetMapping("useCupom/{id}")
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void useCupom(@PathVariable Integer id, Cupon cupon){
+      Optional<EntidadeDominio> entidadeDominio;
+      entidadeDominio = facade.consultar(id, cupon);
+      Cupon cuponSaved = (Cupon) entidadeDominio.get();
+      cuponSaved.setCountUsing(cuponSaved.getCountUsing() + 1);
+      facade.salvar(cuponSaved);
+    }
 }

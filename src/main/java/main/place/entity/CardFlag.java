@@ -15,7 +15,6 @@ public class CardFlag extends EntidadeDominio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-
     @Column(name = "is_active")
     private String isActive;
 }

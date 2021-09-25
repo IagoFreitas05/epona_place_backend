@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface CuponsRepository extends JpaRepository<Cupon, Integer> {
     List<Cupon> findByIdManager(Integer id);
+    Cupon findByName(String name);
 }
