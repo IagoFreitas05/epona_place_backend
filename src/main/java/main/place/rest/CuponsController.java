@@ -24,6 +24,8 @@ public class CuponsController {
     @ResponseStatus(HttpStatus.CREATED)
     public String save(@RequestBody Cupon cupons){
         cupons.setIdManager(userService.getLoggedUser().getId());
+        cupons.setCountUsing(0);
+        cupons.setIsValid("true");
         EntidadeDominio entity = facade.salvar(cupons);
         if(entity instanceof ReturnMessage){
             return ((ReturnMessage) entity).getReturnMessage();

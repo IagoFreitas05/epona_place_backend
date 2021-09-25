@@ -31,7 +31,6 @@ public class Cupon  extends EntidadeDominio{
 
     @Column
     private String type;
-    //criar enum para listar os tipos
 
     @Column
     private String value;
