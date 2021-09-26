@@ -26,6 +26,8 @@ public class Facade implements IFacade{
     private final CuponsRepository cuponsRepository;
     private final CategoryRepository categoryRepository;
     private final ProductInvetoryRepository productInvetoryRepository;
+    private final PurchaseOrderRepository purchaseOrderRepository;
+    private final OrderItemRepository orderItemRepository;
 
     public Facade(
                   AddressRepository addressRepository,
@@ -40,7 +42,9 @@ public class Facade implements IFacade{
                   ProductRepository productRepository,
                   CuponsRepository cuponsRepository,
                   CategoryRepository categoryRepository,
-                  ProductInvetoryRepository productInvetoryRepository
+                  ProductInvetoryRepository productInvetoryRepository,
+                  PurchaseOrderRepository purchaseOrderRepository,
+                  OrderItemRepository orderItemRepository
     ){
         this.addressRepository = addressRepository;
         this.logRepository = logRepository;
@@ -55,6 +59,8 @@ public class Facade implements IFacade{
         this.cuponsRepository = cuponsRepository;
         this.categoryRepository = categoryRepository;
         this.productInvetoryRepository = productInvetoryRepository;
+        this.purchaseOrderRepository = purchaseOrderRepository;
+        this.orderItemRepository = orderItemRepository;
         initJpa();
         initStrategy();
     }
@@ -121,6 +127,8 @@ public class Facade implements IFacade{
         repositorys.put(Cupon.class.getName(), cuponsRepository);
         repositorys.put(Category.class.getName(), categoryRepository);
         repositorys.put(ProductInvetory.class.getName(), productInvetoryRepository);
+        repositorys.put(PurchaseOrder.class.getName(), purchaseOrderRepository);
+        repositorys.put(OrderItem.class.getName(), orderItemRepository);
     }
 
     public void initStrategy(){
