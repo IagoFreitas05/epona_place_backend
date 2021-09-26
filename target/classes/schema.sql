@@ -80,3 +80,34 @@ CREATE TABLE PRODUCT_INVETORY
     original_quantity INT,
     current_quantity  INT
 )
+
+CREATE TABLE CARD_FLAG
+(
+    ID        INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    name      varchar(200),
+    is_active varchar(20)
+)
+
+CREATE TABLE PURCHASE_ORDER
+(
+    ID             INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    id_user        INT,
+    id_address     INT,
+    id_credit_card INT NULL,
+    payment_type   varchar(20),
+    id_cupom       INT NULL,
+    total_value    VARCHAR(200),
+    data           DATE
+)
+
+CREATE TABLE ORDER_ITEM
+(
+    ID         INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    id_pedido  INT,
+    id_user    INT,
+    id_manager INT,
+    id_produto INT,
+    unit_price varchar(100),
+    product_image varchar(100),
+    quantity    INT
+)

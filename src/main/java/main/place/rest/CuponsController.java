@@ -19,6 +19,7 @@ public class CuponsController {
     private final CuponsRepository cuponsRepository;
     private final UserService userService;
 
+
     @PostMapping
     @CrossOrigin()
     @ResponseStatus(HttpStatus.CREATED)
