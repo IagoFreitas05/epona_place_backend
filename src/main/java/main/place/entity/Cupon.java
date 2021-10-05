@@ -35,6 +35,9 @@ public class Cupon  extends EntidadeDominio{
     @Column
     private String value;
 
+    @Column(name = "id_user")
+    private Integer idUser;
+
     @Column(name = "is_valid")
     private String isValid;
 }

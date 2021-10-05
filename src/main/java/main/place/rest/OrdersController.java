@@ -3,20 +3,17 @@ package main.place.rest;
 import lombok.RequiredArgsConstructor;
 import main.place.adapter.PurchaseOrderAdapter;
 import main.place.dto.OrderDTO;
-import main.place.entity.EntidadeDominio;
-import main.place.entity.OrderItem;
-import main.place.entity.PurchaseOrder;
-import main.place.entity.User;
+import main.place.entity.*;
 import main.place.facade.Facade;
+import main.place.repository.CuponsRepository;
 import main.place.repository.OrderItemRepository;
 import main.place.repository.PurchaseOrderRepository;
 import main.place.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,6 +24,7 @@ public class OrdersController {
     private final PurchaseOrderAdapter orderAdapter;
     private final PurchaseOrderRepository purchaseOrderRepository;
     private final OrderItemRepository orderItemRepository;
+    private Cupon cupon;
 
     @PostMapping
     @CrossOrigin
@@ -68,4 +66,75 @@ public class OrdersController {
     public List<OrderItem> findOrderItemsByIdOrder(@PathVariable Integer id){
         return orderItemRepository.findByIdPedido(id);
     }
+
+    @GetMapping("cancelOrder/{id}")
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void cancelOrder(@PathVariable Integer id, PurchaseOrder purchaseOrder){
+        Optional<EntidadeDominio> entidadeDominio =  facade.consultar(id, purchaseOrder);
+        PurchaseOrder purchaseOrderSaved = (PurchaseOrder) entidadeDominio.get();
+        purchaseOrderSaved.setStatus("cancelado");
+
+        /*create a cupon*/
+        Cupon cupon = new Cupon();
+        cupon.setName(UUID.randomUUID().toString().replace('-','p'));
+        cupon.setQuantity(1);
+        cupon.setCountUsing(1);
+        cupon.setType("DEVOLUCAO");
+        cupon.setIsValid("true");
+        cupon.setIdUser(purchaseOrderSaved.getId());
+        cupon.setValue(purchaseOrderSaved.getTotalValue());
+
+        facade.salvar(cupon);
+        facade.alterar(purchaseOrderSaved);
+    }
+
+    @GetMapping("sendOrder/{id}")
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void sendOrder(@PathVariable Integer id, PurchaseOrder purchaseOrder){
+        Optional<EntidadeDominio> entidadeDominio =  facade.consultar(id, purchaseOrder);
+        PurchaseOrder purchaseOrderSaved = (PurchaseOrder) entidadeDominio.get();
+        purchaseOrderSaved.setStatus("enviado");
+        facade.alterar(purchaseOrderSaved);
+    }
+
+    @GetMapping("returnMade/{id}")
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void returnMade(@PathVariable Integer id, PurchaseOrder purchaseOrder){
+        Optional<EntidadeDominio> entidadeDominio =  facade.consultar(id, purchaseOrder);
+        PurchaseOrder purchaseOrderSaved = (PurchaseOrder) entidadeDominio.get();
+        purchaseOrderSaved.setStatus("retorno_enviado");
+        facade.alterar(purchaseOrderSaved);
+    }
+
+
+    @GetMapping("confirmReceivement/{id}")
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void confirmReceivement(@PathVariable Integer id, PurchaseOrder purchaseOrder)
+    {
+        Optional<EntidadeDominio> entidadeDominio =  facade.consultar(id, purchaseOrder);
+        PurchaseOrder purchaseOrderSaved = (PurchaseOrder) entidadeDominio.get();
+        purchaseOrderSaved.setStatus("recebido");
+        facade.alterar(purchaseOrderSaved);
+    }
+
+    @GetMapping("requestCancel/{id}")
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void requestCancel(@PathVariable Integer id, PurchaseOrder purchaseOrder){
+        Optional<EntidadeDominio> entidadeDominio =  facade.consultar(id, purchaseOrder);
+        PurchaseOrder purchaseOrderSaved = (PurchaseOrder) entidadeDominio.get();
+        purchaseOrderSaved.setStatus("cancelamento_solicitado");
+        facade.alterar(purchaseOrderSaved);
+    }
+
+    @GetMapping("findByStatus/{status}")
+    @CrossOrigin
+    public List<PurchaseOrder> findByStatus(@PathVariable String status){
+        return purchaseOrderRepository.findPurchaseOrderByStatus(status);
+    }
+
 }
