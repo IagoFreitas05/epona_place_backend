@@ -75,6 +75,15 @@ public class CuponsController {
       entidadeDominio = facade.consultar(id, cupon);
       Cupon cuponSaved = (Cupon) entidadeDominio.get();
       cuponSaved.setCountUsing(cuponSaved.getCountUsing() + 1);
+      if(cuponSaved.getCountUsing().equals(cuponSaved.getQuantity())){
+          cuponSaved.setIsValid("false");
+      }
       facade.salvar(cuponSaved);
+    }
+
+    @GetMapping("findByIdUser/{id}")
+    @CrossOrigin
+    public List<Cupon> findByIdUser(@PathVariable Integer id){
+        return cuponsRepository.findByIdUser(id);
     }
 }

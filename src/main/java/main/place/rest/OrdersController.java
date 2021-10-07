@@ -79,10 +79,10 @@ public class OrdersController {
         Cupon cupon = new Cupon();
         cupon.setName(UUID.randomUUID().toString().replace('-','p'));
         cupon.setQuantity(1);
-        cupon.setCountUsing(1);
+        cupon.setCountUsing(0);
         cupon.setType("DEVOLUCAO");
         cupon.setIsValid("true");
-        cupon.setIdUser(purchaseOrderSaved.getId());
+        cupon.setIdUser(purchaseOrderSaved.getIdUser());
         cupon.setValue(purchaseOrderSaved.getTotalValue());
 
         facade.salvar(cupon);
