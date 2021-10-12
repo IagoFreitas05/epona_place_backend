@@ -105,7 +105,7 @@ public class OrdersController {
     public void returnMade(@PathVariable Integer id, PurchaseOrder purchaseOrder){
         Optional<EntidadeDominio> entidadeDominio =  facade.consultar(id, purchaseOrder);
         PurchaseOrder purchaseOrderSaved = (PurchaseOrder) entidadeDominio.get();
-        purchaseOrderSaved.setStatus("retorno_enviado");
+        purchaseOrderSaved.setShippingStatus("retorno_enviado");
         facade.alterar(purchaseOrderSaved);
     }
 
@@ -136,5 +136,4 @@ public class OrdersController {
     public List<PurchaseOrder> findByStatus(@PathVariable String status){
         return purchaseOrderRepository.findPurchaseOrderByStatus(status);
     }
-
 }

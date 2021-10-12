@@ -38,6 +38,9 @@ public class PurchaseOrder extends EntidadeDominio{
     @Column
     private String status;
 
+    @Column (name =" shipping_status")
+    private String shippingStatus;
+
     @Column
     private LocalDateTime data;
 }

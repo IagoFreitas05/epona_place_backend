@@ -43,9 +43,6 @@ public class ClientController {
         if(entityAddress instanceof ReturnMessage){
             return ((ReturnMessage) entityAddress).getReturnMessage();
         }
-
-
-
         return "sucesso";
     }
 

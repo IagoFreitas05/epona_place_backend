@@ -36,6 +36,10 @@ public class OrderItem extends EntidadeDominio{
     @Column
     private String status;
 
+    @Column(name = "shipping_status")
+    private String shippingStatus;
+
+
     @Column( name = "product_image" )
     private String productImage;
 }
