@@ -108,7 +108,7 @@ public class OrdersController {
         purchaseOrderSaved.setShippingStatus("retorno_enviado");
         facade.alterar(purchaseOrderSaved);
     }
-
+    
 
     @GetMapping("confirmReceivement/{id}")
     @CrossOrigin
@@ -127,7 +127,28 @@ public class OrdersController {
     public void requestCancel(@PathVariable Integer id, PurchaseOrder purchaseOrder){
         Optional<EntidadeDominio> entidadeDominio =  facade.consultar(id, purchaseOrder);
         PurchaseOrder purchaseOrderSaved = (PurchaseOrder) entidadeDominio.get();
-        purchaseOrderSaved.setStatus("cancelamento_solicitado");
+        purchaseOrderSaved.setStatus("aguardando_aprovacao");
+        facade.alterar(purchaseOrderSaved);
+    }
+
+    @GetMapping("aprovedCancel/{id}")
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void aprovedCancel(@PathVariable Integer id, PurchaseOrder purchaseOrder){
+        Optional<EntidadeDominio> entidadeDominio =  facade.consultar(id, purchaseOrder);
+        PurchaseOrder purchaseOrderSaved = (PurchaseOrder) entidadeDominio.get();
+        purchaseOrderSaved.setStatus("cancelamento_aprovado");
+        facade.alterar(purchaseOrderSaved);
+    }
+
+
+    @GetMapping("deniedCancel/{id}")
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deniedCancel(@PathVariable Integer id, PurchaseOrder purchaseOrder){
+        Optional<EntidadeDominio> entidadeDominio =  facade.consultar(id, purchaseOrder);
+        PurchaseOrder purchaseOrderSaved = (PurchaseOrder) entidadeDominio.get();
+        purchaseOrderSaved.setStatus("cancelamento_negado");
         facade.alterar(purchaseOrderSaved);
     }
 
