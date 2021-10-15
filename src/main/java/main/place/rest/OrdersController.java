@@ -52,7 +52,7 @@ public class OrdersController {
     @GetMapping("findByIdUser/{id}")
     @CrossOrigin
     public List<PurchaseOrder> findByIdUser(@PathVariable Integer id){
-        return purchaseOrderRepository.findByIdUser(id);
+        return purchaseOrderRepository.findByIdUserOrderByIdDesc(id);
     }
 
     @GetMapping("{id}")

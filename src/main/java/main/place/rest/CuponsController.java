@@ -84,6 +84,6 @@ public class CuponsController {
     @GetMapping("findByIdUser/{id}")
     @CrossOrigin
     public List<Cupon> findByIdUser(@PathVariable Integer id){
-        return cuponsRepository.findByIdUser(id);
+        return cuponsRepository.findByIdUserOrderByIdDesc(id);
     }
 }
