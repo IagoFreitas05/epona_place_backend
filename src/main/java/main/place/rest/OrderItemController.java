@@ -41,4 +41,14 @@ public class OrderItemController {
         facade.salvar(cupon);
         facade.salvar(orderItemSaved);
     }
+
+    @GetMapping("requestCancel/{id}")
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void requestCancel(@PathVariable Integer id){
+        Optional<OrderItem> orderItemOptional = orderItemRepository.findById(id);
+        OrderItem orderItemSaved = orderItemOptional.get();
+        orderItemSaved.setStatus("cancelamento_solicitado");
+        facade.salvar(orderItemSaved);
+    }
 }
