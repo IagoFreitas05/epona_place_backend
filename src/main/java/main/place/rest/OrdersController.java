@@ -5,7 +5,6 @@ import main.place.adapter.PurchaseOrderAdapter;
 import main.place.dto.OrderDTO;
 import main.place.entity.*;
 import main.place.facade.Facade;
-import main.place.repository.CuponsRepository;
 import main.place.repository.OrderItemRepository;
 import main.place.repository.PurchaseOrderRepository;
 import main.place.services.UserService;
@@ -156,5 +155,17 @@ public class OrdersController {
     @CrossOrigin
     public List<PurchaseOrder> findByStatus(@PathVariable String status){
         return purchaseOrderRepository.findPurchaseOrderByStatus(status);
+    }
+
+    @GetMapping("returnQuantifiedByStatus/{status}")
+    @CrossOrigin
+    public Integer returnQuantifiedByStatus(@PathVariable String status){
+        return purchaseOrderRepository.findPurchaseOrderByStatus(status).size();
+    }
+
+    @GetMapping("returnOrdersByPeriod")
+    @CrossOrigin
+    public List<PurchaseOrder> returnOrdersByPeriod(){
+        return null;
     }
 }

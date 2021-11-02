@@ -9,10 +9,8 @@ import main.place.facade.Facade;
 import main.place.repository.OrderItemRepository;
 import main.place.repository.PurchaseOrderRepository;
 import main.place.services.UserService;
-import org.hibernate.criterion.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -60,6 +58,7 @@ public class OrderItemController {
     public void requestCancel(@PathVariable Integer id){
         Optional<OrderItem> orderItemOptional = orderItemRepository.findById(id);
         OrderItem orderItemSaved = orderItemOptional.get();
+        /*new commnetn*/
 
         Optional<PurchaseOrder> purchaseOrder = purchaseOrderRepository.findById(orderItemSaved.getIdPedido());
         PurchaseOrder purchaseOrderSaved = purchaseOrder.get();
@@ -100,5 +99,11 @@ public class OrderItemController {
         OrderItem purchaseOrderSaved = (OrderItem) entidadeDominio.get();
         purchaseOrderSaved.setShippingStatus("retorno_enviado");
         facade.alterar(purchaseOrderSaved);
+    }
+
+    @GetMapping("returnQuantifiedItemByStatus/{status}")
+    @CrossOrigin
+    public Integer returnQuantifiedByStatus(@PathVariable String status){
+        return orderItemRepository.findOrderItemByStatus(status).size();
     }
 }

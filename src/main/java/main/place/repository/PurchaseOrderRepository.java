@@ -8,4 +8,6 @@ import java.util.List;
 public interface PurchaseOrderRepository extends JpaRepository<PurchaseOrder, Integer> {
     public List<PurchaseOrder> findByIdUserOrderByIdDesc(Integer id);
     public List<PurchaseOrder> findPurchaseOrderByStatus(String status);
+
+
 }
