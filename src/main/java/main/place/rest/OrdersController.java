@@ -3,9 +3,11 @@ package main.place.rest;
 import lombok.RequiredArgsConstructor;
 import main.place.adapter.PurchaseOrderAdapter;
 import main.place.dto.OrderDTO;
+import main.place.dto.PurchaseOrderByPeriodDTO;
 import main.place.entity.*;
 import main.place.facade.Facade;
 import main.place.repository.OrderItemRepository;
+import main.place.repository.PurcharseOrderByPeriodDTORepository;
 import main.place.repository.PurchaseOrderRepository;
 import main.place.services.UserService;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,7 @@ public class OrdersController {
     private final PurchaseOrderAdapter orderAdapter;
     private final PurchaseOrderRepository purchaseOrderRepository;
     private final OrderItemRepository orderItemRepository;
+    private final PurcharseOrderByPeriodDTORepository orderByPeriodDTORepository;
     private Cupon cupon;
 
     @PostMapping
@@ -165,7 +168,8 @@ public class OrdersController {
 
     @GetMapping("returnOrdersByPeriod")
     @CrossOrigin
-    public List<PurchaseOrder> returnOrdersByPeriod(){
-        return null;
+    public List<PurchaseOrderByPeriodDTO> returnOrdersByPeriod(){
+
+        return orderByPeriodDTORepository.findPurcharseOrderByPeriod();
     }
 }
