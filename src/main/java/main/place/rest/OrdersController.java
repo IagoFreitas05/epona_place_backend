@@ -2,10 +2,7 @@ package main.place.rest;
 
 import lombok.RequiredArgsConstructor;
 import main.place.adapter.PurchaseOrderAdapter;
-import main.place.dto.OrderDTO;
-import main.place.dto.ProductsByPeriodDTO;
-import main.place.dto.PurchaseOrderByPeriodDTO;
-import main.place.dto.SalesByCategoryDTO;
+import main.place.dto.*;
 import main.place.entity.Cupon;
 import main.place.entity.EntidadeDominio;
 import main.place.entity.OrderItem;
@@ -32,6 +29,7 @@ public class OrdersController {
     private final PurcharseOrderByPeriodDTORepository orderByPeriodDTORepository;
     private final ProductsByPeriodDTORepository productsByPeriodDTORepository;
     private final SalesByCategoryDTORepository salesByCategoryDTORepository;
+    private final ProductsSaleQuantityDTORepository productsSaleQuantityDTORepository;
     private Cupon cupon;
 
     @PostMapping
@@ -187,5 +185,11 @@ public class OrdersController {
     @CrossOrigin
     public List<SalesByCategoryDTO> returnSalesByCategory(){
         return salesByCategoryDTORepository.findSalesByCategory();
+    }
+
+    @GetMapping("returnProductSaleQuantity")
+    @CrossOrigin
+    public List<ProductsSaleQuantityDTO> returnProductSaleQuantity(){
+        return productsSaleQuantityDTORepository.findProductBySaleQuantity();
     }
 }
