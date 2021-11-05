@@ -3,15 +3,15 @@ package main.place.rest;
 import lombok.RequiredArgsConstructor;
 import main.place.adapter.PurchaseOrderAdapter;
 import main.place.dto.OrderDTO;
+import main.place.dto.ProductsByPeriodDTO;
 import main.place.dto.PurchaseOrderByPeriodDTO;
+import main.place.dto.SalesByCategoryDTO;
 import main.place.entity.Cupon;
 import main.place.entity.EntidadeDominio;
 import main.place.entity.OrderItem;
 import main.place.entity.PurchaseOrder;
 import main.place.facade.Facade;
-import main.place.repository.OrderItemRepository;
-import main.place.repository.PurcharseOrderByPeriodDTORepository;
-import main.place.repository.PurchaseOrderRepository;
+import main.place.repository.*;
 import main.place.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +30,8 @@ public class OrdersController {
     private final PurchaseOrderRepository purchaseOrderRepository;
     private final OrderItemRepository orderItemRepository;
     private final PurcharseOrderByPeriodDTORepository orderByPeriodDTORepository;
+    private final ProductsByPeriodDTORepository productsByPeriodDTORepository;
+    private final SalesByCategoryDTORepository salesByCategoryDTORepository;
     private Cupon cupon;
 
     @PostMapping
@@ -173,5 +175,17 @@ public class OrdersController {
     @CrossOrigin
     public List<PurchaseOrderByPeriodDTO> returnOrdersByPeriod() {
         return orderByPeriodDTORepository.findPurcharseOrderByPeriod();
+    }
+
+    @GetMapping("returnProductsByPeriod")
+    @CrossOrigin
+    public List<ProductsByPeriodDTO> returnProductsByPeriod(){
+        return productsByPeriodDTORepository.findProductsByPeriod();
+    }
+
+    @GetMapping("returnSalesByCategory")
+    @CrossOrigin
+    public List<SalesByCategoryDTO> returnSalesByCategory(){
+        return salesByCategoryDTORepository.findSalesByCategory();
     }
 }
