@@ -202,13 +202,11 @@ public class OrdersController {
                     inputSearchAnalysisDTO.getStartPeriod(),
                     inputSearchAnalysisDTO.getEndsPeriod())
         );
-
         response.setProductsByPeriodDTO(productsByPeriodDTORepository
                 .findProductsByLimitedPeriod(
                     inputSearchAnalysisDTO.getStartPeriod(),
                     inputSearchAnalysisDTO.getEndsPeriod())
         );
-
         return response;
     }
 }

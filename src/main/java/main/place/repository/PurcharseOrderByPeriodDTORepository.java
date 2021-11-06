@@ -14,8 +14,8 @@ public interface PurcharseOrderByPeriodDTORepository extends JpaRepository<Purch
 
     @Query(value = "select  id,count(id) as quantity, DATE_FORMAT(data,'%Y-%m-%d') as data\n" +
             "    from purchase_order\n" +
-            "    WHERE DATE_FORMAT(data,'%Y-%m-%d')  > :startPeriod \n" +
-            "    AND DATE_FORMAT(data,'%Y-%m-%d')  < :endsPeriod \n" +
+            "    WHERE DATE_FORMAT(data,'%Y-%m-%d')  >= :startPeriod \n" +
+            "    AND DATE_FORMAT(data,'%Y-%m-%d')  <= :endsPeriod \n" +
                 "    group by DATE_FORMAT(data,'%y-%m-%d')", nativeQuery = true)
     List<PurchaseOrderByPeriodDTO> findPurcharseOrderByLimitedPeriod(@Param("startPeriod") String startPeriod, @Param("endsPeriod") String endsPeriod);
 }
