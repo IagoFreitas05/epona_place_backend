@@ -192,4 +192,23 @@ public class OrdersController {
     public List<ProductsSaleQuantityDTO> returnProductSaleQuantity(){
         return productsSaleQuantityDTORepository.findProductBySaleQuantity();
     }
+
+    @PostMapping("getAnalysisByPeriod")
+    @CrossOrigin
+    public SearchDataAnalysisDTO returnAnalysisByPeriod(@RequestBody InputSearchAnalysisDTO inputSearchAnalysisDTO){
+        SearchDataAnalysisDTO response = new SearchDataAnalysisDTO();
+        response.setPurchaseOrderByPeriodDTO(orderByPeriodDTORepository
+                .findPurcharseOrderByLimitedPeriod(
+                    inputSearchAnalysisDTO.getStartPeriod(),
+                    inputSearchAnalysisDTO.getEndsPeriod())
+        );
+
+        response.setProductsByPeriodDTO(productsByPeriodDTORepository
+                .findProductsByLimitedPeriod(
+                    inputSearchAnalysisDTO.getStartPeriod(),
+                    inputSearchAnalysisDTO.getEndsPeriod())
+        );
+
+        return response;
+    }
 }

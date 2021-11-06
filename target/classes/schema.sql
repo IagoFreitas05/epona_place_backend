@@ -111,3 +111,40 @@ CREATE TABLE ORDER_ITEM
     product_image varchar(100),
     quantity    INT
 )
+
+-- Select findProductsByLimitedPeriod
+select  order_item.id as id, name,
+        count(order_item.id_produto) as quantidade,
+        DATE_FORMAT(data,'%Y-%m-%d') as data
+from order_item
+         inner join purchase_order po on order_item.id_pedido = po.id
+         inner join product p on order_item.id_produto = p.id
+where DATE_FORMAT(data,'%Y-%m-%d') > '2021-10-14'
+  AND DATE_FORMAT(data,'%Y-%m-%d') < '2021-11-05'
+group by DATE_FORMAT(data,'%Y-%m-%d')
+
+-- Select findProductsByPeriod
+select  order_item.id as id, name,
+        count(order_item.id_produto) as quantidade,
+        DATE_FORMAT(data,'%y-%m-%d') as data
+from order_item
+         inner join purchase_order po on order_item.id_pedido = po.id
+         inner join product p on order_item.id_produto = p.id
+group by data
+
+-- Select findSalesByCategory
+select category.id as id, COUNT(category.id) as quantity, category.category from category
+     INNER JOIN product p on category.id = p.category
+     INNER JOIN order_item oi on oi.id_produto = p.id
+GROUP BY category.category
+
+-- Select findProductBySaleQuantity
+select product.id as id, COUNT(product.id) as quantity, product.name from product
+      INNER JOIN order_item oi on oi.id_produto = product.id
+      INNER JOIN category c on c.id = product.category
+GROUP BY product.name
+
+-- Select findProductBySaleQuantity
+select  id,count(id) as quantity, DATE_FORMAT(data,'%Y-%m-%d') as data
+    from purchase_order
+    group by DATE_FORMAT(data,'%y-%m-%d')
