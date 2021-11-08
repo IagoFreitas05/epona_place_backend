@@ -15,7 +15,7 @@ public interface ProductsByPeriodDTORepository  extends JpaRepository<ProductsBy
             "from order_item\n" +
             "    inner join purchase_order po on order_item.id_pedido = po.id\n" +
             "    inner join product p on order_item.id_produto = p.id\n" +
-            "    group by DATE_FORMAT(data,'%Y-%m-%d')", nativeQuery = true)
+            "    group by data", nativeQuery = true)
     List<ProductsByPeriodDTO> findProductsByPeriod();
 
     @Query(value = "SELECT order_item.id as id, name,\n" +
@@ -26,6 +26,6 @@ public interface ProductsByPeriodDTORepository  extends JpaRepository<ProductsBy
             "    inner join product p on order_item.id_produto = p.id\n" +
             " WHERE DATE_FORMAT(data,'%Y-%m-%d') >= :startPeriod \n" +
             "    AND DATE_FORMAT(data,'%Y-%m-%d') <= :endsPeriod \n"+
-            "    group by DATE_FORMAT(data,'%Y-%m-%d')", nativeQuery = true)
+            "    group by data", nativeQuery = true)
     List<ProductsByPeriodDTO> findProductsByLimitedPeriod(@Param("startPeriod") String startPeriod, @Param("endsPeriod") String endsPeriod);
 }
