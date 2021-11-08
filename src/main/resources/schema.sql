@@ -148,3 +148,14 @@ GROUP BY product.name
 select  id,count(id) as quantity, DATE_FORMAT(data,'%Y-%m-%d') as data
     from purchase_order
     group by DATE_FORMAT(data,'%y-%m-%d')
+
+-- select findCategoryByPeriod (implementar)
+select  order_item.id as id,
+        c.category,
+        count(order_item.id_produto) as quantidade,
+        DATE_FORMAT(data,'%Y-%m-%d') as data
+from order_item
+         inner join purchase_order po on order_item.id_pedido = po.id
+         inner join product p on order_item.id_produto = p.id
+         inner join category c on p.category = c.id
+group by data
