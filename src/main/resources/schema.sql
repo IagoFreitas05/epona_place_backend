@@ -165,5 +165,5 @@ CREATE TABLE REQUEST_ITEMS_CANCEL(
     ID  INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     id_order_item INT,
     quantity INT,
-    status INT
+    status varchar(200)
 )
