@@ -159,3 +159,11 @@ from order_item
          inner join product p on order_item.id_produto = p.id
          inner join category c on p.category = c.id
 group by data
+
+-- create table request_items_cancel
+CREATE TABLE REQUEST_ITEMS_CANCEL(
+    ID  INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    id_order_item INT,
+    quantity INT,
+    status INT
+)

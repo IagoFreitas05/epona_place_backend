@@ -1,14 +1,13 @@
 package main.place.rest;
 
 import lombok.RequiredArgsConstructor;
-import main.place.entity.Cupon;
-import main.place.entity.EntidadeDominio;
-import main.place.entity.OrderItem;
-import main.place.entity.PurchaseOrder;
+import main.place.entity.*;
 import main.place.facade.Facade;
 import main.place.repository.OrderItemRepository;
 import main.place.repository.PurchaseOrderRepository;
+import main.place.repository.RequestItemsCancelRepository;
 import main.place.services.UserService;
+import org.apache.coyote.Request;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -23,6 +22,7 @@ public class OrderItemController {
     private final UserService userService;
     private final OrderItemRepository orderItemRepository;
     private final PurchaseOrderRepository purchaseOrderRepository;
+    private final RequestItemsCancelRepository requestItemsCancelRepository;
 
     @GetMapping("cancelItem/{id}")
     @CrossOrigin
@@ -40,10 +40,48 @@ public class OrderItemController {
         cupon.setType("DEVOLUCAO");
         cupon.setIsValid("true");
         cupon.setIdUser(orderItemSaved.getIdUser());
-        cupon.setValue(orderItemSaved.getValue());
+        float cupomValue = Float.parseFloat(orderItemSaved.getValue()) * orderItemSaved.getQuantity();
+        cupon.setValue(Float.toString(cupomValue));
 
         facade.salvar(cupon);
         facade.salvar(orderItemSaved);
+    }
+
+    @GetMapping("cancelMultipleItems/{id}/{quantity}/{requestCancelId}")
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void cancelMultipleItems(
+            @PathVariable Integer id,
+            @PathVariable Integer quantity,
+            @PathVariable Integer requestCancelId ){
+
+        Optional<OrderItem> orderItemOptinal = orderItemRepository.findById(id);
+        OrderItem orderItemSaved = orderItemOptinal.get();
+        orderItemSaved.setQuantity(orderItemSaved.getQuantity() - quantity);
+
+        if(orderItemSaved.getQuantity().equals(quantity)){
+            orderItemSaved.setStatus("cancelado");
+            facade.salvar(orderItemSaved);
+        }
+
+        if(requestCancelId > 0){
+            Optional<RequestItemsCancel> requestItemsCancel = requestItemsCancelRepository.findById(id);
+            RequestItemsCancel requestItemsCancelSaved = requestItemsCancel.get();
+            requestItemsCancelSaved.setStatus("items_cancelados");
+            facade.salvar(requestItemsCancelSaved);
+        }
+
+        Cupon cupon = new Cupon();
+        cupon.setName(UUID.randomUUID().toString().replace('-','p'));
+        cupon.setQuantity(1);
+        cupon.setCountUsing(0);
+        cupon.setType("DEVOLUCAO");
+        cupon.setIsValid("true");
+        cupon.setIdUser(orderItemSaved.getIdUser());
+        float cupomValue = Float.parseFloat(orderItemSaved.getValue()) * quantity;
+        cupon.setValue(Float.toString(cupomValue));
+
+        facade.salvar(cupon);
     }
 
     @GetMapping("findByStatus/{status}")
@@ -68,6 +106,27 @@ public class OrderItemController {
         }else {
             orderItemSaved.setStatus("cancelamento_solicitado");
             facade.salvar(orderItemSaved);
+        }
+    }
+
+    @GetMapping("requestCancelByQuantity/{id}/{quantity}")
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void requestCancelByQuantity(@PathVariable Integer id, @PathVariable Integer quantity){
+        Optional<OrderItem> orderItemOptional = orderItemRepository.findById(id);
+        OrderItem orderItemSaved = orderItemOptional.get();
+
+        Optional<PurchaseOrder> purchaseOrder = purchaseOrderRepository.findById(orderItemSaved.getIdPedido());
+        PurchaseOrder purchaseOrderSaved = purchaseOrder.get();
+
+        if(purchaseOrderSaved.getStatus().equals("andamento")){
+            cancelMultipleItems(orderItemSaved.getId(), quantity, 0);
+        }else {
+            RequestItemsCancel requestItemsCancel = new RequestItemsCancel();
+            requestItemsCancel.setIdOrderItem(id);
+            requestItemsCancel.setQuantity(quantity);
+            requestItemsCancel.setStatus("cancelamento_solicitado");
+            facade.salvar(requestItemsCancel);
         }
     }
 
