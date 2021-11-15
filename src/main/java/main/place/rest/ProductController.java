@@ -76,4 +76,24 @@ public class ProductController {
     @GetMapping("findByIdManager/{id}")
     @CrossOrigin
     public List<Product> mostrarPorIdUser(@PathVariable Integer id, CreditCard creditCard){return productRepository.findByIdManager(id); }
+
+    @GetMapping("disable/{id}")
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void disable(@PathVariable Integer id, Product Productparam){
+       Optional<EntidadeDominio> productSaved = facade.consultar(id, Productparam);
+       Product product = (Product) productSaved.get();
+       product.setStatus("inativo");
+       facade.salvar(product);
+    }
+
+    @GetMapping("activate/{id}")
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void activate(@PathVariable Integer id, Product Productparam){
+        Optional<EntidadeDominio> productSaved = facade.consultar(id, Productparam);
+        Product product = (Product) productSaved.get();
+        product.setStatus("ativo");
+        facade.salvar(product);
+    }
 }

@@ -19,6 +19,7 @@ public class ProductAdapter {
         product.setDescription(productDTO.getDescription());
         product.setImage(productDTO.getImage());
         product.setValue(productDTO.getValue());
+        product.setStatus("ativo");
         return product;
     }
 }

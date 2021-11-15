@@ -38,6 +38,7 @@ CREATE TABLE PRODUCT
     id_manager  integer,
     size        varchar(200),
     sale_price   varchar(100),
+    STATUS VARCHAR(100),
     image varchar(100)
 )
 
