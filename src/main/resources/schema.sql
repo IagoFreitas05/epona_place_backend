@@ -112,6 +112,14 @@ CREATE TABLE ORDER_ITEM
     quantity    INT
 )
 
+CREATE TABLE REQUEST_ITEMS_CANCEL
+(
+    ID            INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    id_order_item INT,
+    quantity      INT,
+    status        varchar(200)
+)
+
 -- select findProductsByLimitedPeriod
 select  order_item.id as id, name,
         count(order_item.id_produto) as quantidade,
@@ -160,10 +168,16 @@ from order_item
          inner join category c on p.category = c.id
 group by data
 
--- create table request_items_cancel
-CREATE TABLE REQUEST_ITEMS_CANCEL(
-    ID  INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    id_order_item INT,
-    quantity INT,
-    status varchar(200)
-)
+-- select multiple requests Cancel Items
+select
+    request_items_cancel.status,
+    od.status as status,
+    od.product_image,
+    request_items_cancel.quantity,
+    od.value as value,
+       od.id_pedido,
+       od.id as order_item_id,
+       request_items_cancel.id as id
+from request_items_cancel
+    inner join order_item od on od.id = request_items_cancel.id_order_item
+where request_items_cancel.status != 'items_cancelados'

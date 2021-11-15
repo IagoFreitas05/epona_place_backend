@@ -1,8 +1,10 @@
 package main.place.rest;
 
 import lombok.RequiredArgsConstructor;
+import main.place.dto.MultipleItemsCancelDTO;
 import main.place.entity.*;
 import main.place.facade.Facade;
+import main.place.repository.MultipleItemsCancelDTORepository;
 import main.place.repository.OrderItemRepository;
 import main.place.repository.PurchaseOrderRepository;
 import main.place.repository.RequestItemsCancelRepository;
@@ -23,6 +25,7 @@ public class OrderItemController {
     private final OrderItemRepository orderItemRepository;
     private final PurchaseOrderRepository purchaseOrderRepository;
     private final RequestItemsCancelRepository requestItemsCancelRepository;
+    private final MultipleItemsCancelDTORepository multipleItemsCancelDTORepository;
 
     @GetMapping("cancelItem/{id}")
     @CrossOrigin
@@ -40,8 +43,7 @@ public class OrderItemController {
         cupon.setType("DEVOLUCAO");
         cupon.setIsValid("true");
         cupon.setIdUser(orderItemSaved.getIdUser());
-        float cupomValue = Float.parseFloat(orderItemSaved.getValue()) * orderItemSaved.getQuantity();
-        cupon.setValue(Float.toString(cupomValue));
+        cupon.setValue(orderItemSaved.getValue());
 
         facade.salvar(cupon);
         facade.salvar(orderItemSaved);
@@ -57,15 +59,17 @@ public class OrderItemController {
 
         Optional<OrderItem> orderItemOptinal = orderItemRepository.findById(id);
         OrderItem orderItemSaved = orderItemOptinal.get();
-        orderItemSaved.setQuantity(orderItemSaved.getQuantity() - quantity);
 
         if(orderItemSaved.getQuantity().equals(quantity)){
             orderItemSaved.setStatus("cancelado");
             facade.salvar(orderItemSaved);
+        }else{
+            orderItemSaved.setQuantity(orderItemSaved.getQuantity() - quantity);
+            facade.salvar(orderItemSaved);
         }
 
         if(requestCancelId > 0){
-            Optional<RequestItemsCancel> requestItemsCancel = requestItemsCancelRepository.findById(id);
+            Optional<RequestItemsCancel> requestItemsCancel = requestItemsCancelRepository.findById(requestCancelId);
             RequestItemsCancel requestItemsCancelSaved = requestItemsCancel.get();
             requestItemsCancelSaved.setStatus("items_cancelados");
             facade.salvar(requestItemsCancelSaved);
@@ -164,5 +168,11 @@ public class OrderItemController {
     @CrossOrigin
     public Integer returnQuantifiedByStatus(@PathVariable String status){
         return orderItemRepository.findOrderItemByStatus(status).size();
+    }
+
+    @GetMapping("returnMultipleRequestCancelItem")
+    @CrossOrigin
+    public List<MultipleItemsCancelDTO> returnMultipleRequestCancelItem(){
+        return multipleItemsCancelDTORepository.findMultipleItemsCancelDTO();
     }
 }
