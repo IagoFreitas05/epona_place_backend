@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product,Integer> {
     List<Product> findByIdManager(Integer idManager);
+    List<Product> findByStatus(String status);
 }

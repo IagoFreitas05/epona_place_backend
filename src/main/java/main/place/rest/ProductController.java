@@ -73,6 +73,12 @@ public class ProductController {
         return facade.mostrarTodos(product);
     }
 
+    @GetMapping("findByStatus/{status}")
+    @CrossOrigin
+    public List<Product> findByStatus(@PathVariable String status){
+        return productRepository.findByStatus(status);
+    }
+
     @GetMapping("findByIdManager/{id}")
     @CrossOrigin
     public List<Product> mostrarPorIdUser(@PathVariable Integer id, CreditCard creditCard){return productRepository.findByIdManager(id); }
