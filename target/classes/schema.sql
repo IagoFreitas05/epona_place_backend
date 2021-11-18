@@ -11,7 +11,6 @@ CREATE TABLE USER
     password  varchar(100) NOT NULL,
     role      varchar(100) NOT NULL
 )
-
 CREATE TABLE ADDRESS
 (
     id           INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -27,7 +26,6 @@ CREATE TABLE ADDRESS
     category     varchar(100),
     observation  varchar(100)
 )
-
 CREATE TABLE PRODUCT
 (
     id          INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -41,7 +39,6 @@ CREATE TABLE PRODUCT
     STATUS VARCHAR(100),
     image varchar(100)
 )
-
 CREATE TABLE CREDIT_CARD
 (
     id          INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -52,7 +49,6 @@ CREATE TABLE CREDIT_CARD
     card_name   varchar(10),
     id_user     int
 )
-
 CREATE TABLE CUPON
 (
     id          INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -64,7 +60,6 @@ CREATE TABLE CUPON
     value       varchar(30),
     is_valid    varchar(30)
 )
-
 CREATE TABLE CATEGORY
 (
     id         INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -72,7 +67,6 @@ CREATE TABLE CATEGORY
     id_manager int,
     profit     varchar(50)
 )
-
 CREATE TABLE PRODUCT_INVETORY
 (
     ID                INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -81,14 +75,12 @@ CREATE TABLE PRODUCT_INVETORY
     original_quantity INT,
     current_quantity  INT
 )
-
 CREATE TABLE CARD_FLAG
 (
     ID        INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     name      varchar(200),
     is_active varchar(20)
 )
-
 CREATE TABLE PURCHASE_ORDER
 (
     ID             INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -100,7 +92,6 @@ CREATE TABLE PURCHASE_ORDER
     total_value    VARCHAR(200),
     data           DATE
 )
-
 CREATE TABLE ORDER_ITEM
 (
     ID         INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -112,13 +103,18 @@ CREATE TABLE ORDER_ITEM
     product_image varchar(100),
     quantity    INT
 )
-
 CREATE TABLE REQUEST_ITEMS_CANCEL
 (
     ID            INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     id_order_item INT,
     quantity      INT,
     status        varchar(200)
+)
+CREATE TABLE DELIVER_TAX
+(
+    id            INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    QUANTITY_ITEM INT,
+    TAX_VALUE     VARCHAR(200)
 )
 
 -- select findProductsByLimitedPeriod
