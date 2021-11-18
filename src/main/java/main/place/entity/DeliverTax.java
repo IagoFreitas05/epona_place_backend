@@ -1,13 +1,15 @@
 package main.place.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class DeliverTax {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

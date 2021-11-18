@@ -3,10 +3,7 @@ package main.place.rest;
 import lombok.RequiredArgsConstructor;
 import main.place.adapter.PurchaseOrderAdapter;
 import main.place.dto.*;
-import main.place.entity.Cupon;
-import main.place.entity.EntidadeDominio;
-import main.place.entity.OrderItem;
-import main.place.entity.PurchaseOrder;
+import main.place.entity.*;
 import main.place.facade.Facade;
 import main.place.repository.*;
 import main.place.services.UserService;
@@ -30,6 +27,7 @@ public class OrdersController {
     private final ProductsByPeriodDTORepository productsByPeriodDTORepository;
     private final SalesByCategoryDTORepository salesByCategoryDTORepository;
     private final ProductsSaleQuantityDTORepository productsSaleQuantityDTORepository;
+    private final DeliverTaxRepository deliverTaxRepository;
     private Cupon cupon;
 
     @PostMapping
