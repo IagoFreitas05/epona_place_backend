@@ -156,6 +156,7 @@ public class Facade implements IFacade{
         strategys.put(Address.class.getName(), validateEndereco);
         strategys.put(User.class.getName(), validateUser);
         strategys.put(CreditCard.class.getName(), validateCreditCard);
+        strategys.put(Product.class.getName(), null);
     }
 
     public String executarStrategy(EntidadeDominio entidade){
