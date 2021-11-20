@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ProductInvetoryRepository extends JpaRepository<ProductInvetory, Integer> {
     List<ProductRepository> findByIdManager(Integer idManager);
+    ProductInvetory findProductInvetoryByIdProduct(Integer idProduct);
 }

@@ -10,6 +10,8 @@ import javax.persistence.Column;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductDTO {
+    private Integer id;
+    private String status;
     private String name;
     private String category;
     private String value;

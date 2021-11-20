@@ -9,7 +9,6 @@ import main.place.facade.Facade;
 import main.place.repository.ProductInvetoryRepository;
 import main.place.repository.ProductRepository;
 import main.place.services.UserService;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +24,7 @@ public class ProductController {
     private final UserService userService;
     private final ProductAdapter productAdapter;
     private final ProductInvetoryAdapter productInvetoryAdapter;
+    private final ProductInvetoryRepository productInvetoryRepository;
 
 
     @PostMapping
@@ -50,10 +50,17 @@ public class ProductController {
 
     @PutMapping
     @CrossOrigin
-    public String alterar(@RequestBody Product product){
+    public String alterar(@RequestBody ProductDTO productDTO){
+        Product product = productAdapter.adapt(productDTO);
         product.setIdManager(userService.getLoggedUser().getId());
-        String res = facade.alterar(product);
-        return res;
+        product.setId(productDTO.getId());
+
+        ProductInvetory invetory = productInvetoryRepository.findProductInvetoryByIdProduct(productDTO.getId());
+        invetory.setCurrentQuantity(productDTO.getQuantity());
+
+        facade.alterar(product);
+        facade.alterar(invetory);
+        return "sucesso";
     }
 
     @DeleteMapping("{id}")
@@ -65,6 +72,12 @@ public class ProductController {
     @CrossOrigin
     public Optional<EntidadeDominio> consultarPorParametro(@PathVariable Integer id, Product product){
         return facade.consultar(id, product);
+    }
+
+    @GetMapping("getQuantityOfProduct/{id}")
+    @CrossOrigin
+    public ProductInvetory getQuantityOfProduct(@PathVariable Integer id){
+        return productInvetoryRepository.findProductInvetoryByIdProduct(id);
     }
 
     @GetMapping()
@@ -81,7 +94,8 @@ public class ProductController {
 
     @GetMapping("findByIdManager/{id}")
     @CrossOrigin
-    public List<Product> mostrarPorIdUser(@PathVariable Integer id, CreditCard creditCard){return productRepository.findByIdManager(id); }
+    public List<Product> mostrarPorIdUser(@PathVariable Integer id, CreditCard creditCard){
+        return productRepository.findByIdManager(id); }
 
     @GetMapping("disable/{id}")
     @CrossOrigin
